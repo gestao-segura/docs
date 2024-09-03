@@ -14,7 +14,7 @@ Esta API permite que integradores registrem licenciados e autentiquem usuários 
 
 ## Postman
 
-[Baixar Coleção Postman - Sistema Gestão Segura](./Sistema%20Gestão%20Segura.postman_collection.json)
+[Baixar Coleção Postman - Sistema Gestão Segura](https://raw.githubusercontent.com/gestao-segura/docs/main/Sistema%20Gest%C3%A3o%20Segura.postman_collection.json)
 
 ---
 
