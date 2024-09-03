@@ -21,7 +21,7 @@ Este endpoint permite que o integrador obtenha um token de autenticação, que �
 
 ### Headers
 
-- Nenhum
+- Content-Type: application/x-www-form-urlencoded
 
 ### Corpo da Requisição
 
@@ -164,7 +164,7 @@ A variável `{{cnpj}}` equivale a um CNPJ sem pontuação. Exemplo: 357964200001
 ### Exemplo de Chamada com cURL
 
 ```bash
-curl -X GET https://api.gestaosegura.app/core/grupos/{{cnpj}} -H "Authorization: Bearer {{token}}"
+curl -X GET https://api.gestaosegura.app/core/grupos/35796420000100 -H "Authorization: Bearer {{token}}"
 ```
 
 ### Resposta de Sucesso (200 OK)
