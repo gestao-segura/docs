@@ -21,7 +21,7 @@ Este endpoint permite que o integrador obtenha um token de autenticação, que �
 
 ### Headers
 
-- Content-Type: application/x-www-form-urlencoded
+- `Content-Type: application/x-www-form-urlencoded`
 
 ### Corpo da Requisição
 
