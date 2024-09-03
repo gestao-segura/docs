@@ -17,7 +17,7 @@ Esta API permite que integradores registrem licenciados e autentiquem usuários 
 Este endpoint permite que o integrador obtenha um token de autenticação, que é necessário para realizar outras operações, como registrar licenciados e autenticar usuários.
 
 **Método HTTP**: `POST`  
-**URL**: `https://sso.{{dominio}}/realms/admin/protocol/openid-connect/token`
+**URL**: `https://sso.gestaosegura.app/realms/admin/protocol/openid-connect/token`
 
 ### Headers
 
@@ -37,7 +37,7 @@ Este endpoint permite que o integrador obtenha um token de autenticação, que �
 ### Exemplo de Chamada com cURL
 
 ```bash
-curl -X POST https://sso.{{dominio}}/realms/admin/protocol/openid-connect/token -H "Content-Type: application/x-www-form-urlencoded" -d "client_id=backoffice" -d "grant_type=password" -d "username={{integradorUsuario}}" -d "password={{integradorSenha}}"
+curl -X POST https://sso.gestaosegura.app/realms/admin/protocol/openid-connect/token -H "Content-Type: application/x-www-form-urlencoded" -d "client_id=backoffice" -d "grant_type=password" -d "username={{integradorUsuario}}" -d "password={{integradorSenha}}"
 ```
 
 ### Resposta de Sucesso (200 OK)
@@ -62,7 +62,7 @@ curl -X POST https://sso.{{dominio}}/realms/admin/protocol/openid-connect/token 
 Este endpoint permite que o integrador registre um novo licenciado no sistema.
 
 **Método HTTP**: `POST`  
-**URL**: `{{apiCore}}/licenciados`
+**URL**: `https://api.gestaosegura.app/core/licenciados`
 
 ### Headers
 
@@ -106,7 +106,7 @@ Este endpoint permite que o integrador registre um novo licenciado no sistema.
 ### Exemplo de Chamada com cURL
 
 ```bash
-curl -X POST {{apiCore}}/licenciados -H "Content-Type: application/json" -H "Authorization: Bearer {{token}}" -d '{
+curl -X POST https://api.gestaosegura.app/core/licenciados -H "Content-Type: application/json" -H "Authorization: Bearer {{token}}" -d '{
     "licenciado": {
         "telefone": "7",
         "email": "email@email.com.br",
@@ -151,7 +151,7 @@ curl -X POST {{apiCore}}/licenciados -H "Content-Type: application/json" -H "Aut
 Este endpoint permite que o integrador obtenha a lista de grupos de usuários configurados para um determinado licenciado. É importante para que o integrador saiba a quais grupos os usuários serão vinculados.
 
 **Método HTTP**: `GET`  
-**URL**: `{{apiCore}}/grupos/{{cnpj}}`
+**URL**: `https://api.gestaosegura.app/core/grupos/{{cnpj}}`
 
 ### Headers
 
@@ -164,7 +164,7 @@ A variável `{{cnpj}}` equivale a um CNPJ sem pontuação. Exemplo: 357964200001
 ### Exemplo de Chamada com cURL
 
 ```bash
-curl -X GET {{apiCore}}/grupos/{{cnpj}} -H "Authorization: Bearer {{token}}"
+curl -X GET https://api.gestaosegura.app/core/grupos/{{cnpj}} -H "Authorization: Bearer {{token}}"
 ```
 
 ### Resposta de Sucesso (200 OK)
@@ -182,7 +182,7 @@ curl -X GET {{apiCore}}/grupos/{{cnpj}} -H "Authorization: Bearer {{token}}"
 Este endpoint permite que um usuário autenticado em outro sistema seja autenticado no sistema interno, sem a necessidade de passar pela tela de login.
 
 **Método HTTP**: `POST`  
-**URL**: `{{apiCore}}/acessos`
+**URL**: `https://api.gestaosegura.app/core/acessos`
 
 ### Headers
 
@@ -215,7 +215,7 @@ Este endpoint permite que um usuário autenticado em outro sistema seja autentic
 ### Exemplo de Chamada com cURL
 
 ```bash
-curl -X POST {{apiCore}}/acessos -H "Content-Type: application/json" -H "Authorization: Bearer {{token}}" -d '{
+curl -X POST https://api.gestaosegura.app/core/acessos -H "Content-Type: application/json" -H "Authorization: Bearer {{token}}" -d '{
     "nomeDaAssociacao": "Nome da Associacao",
     "codigoMobile": "456",
     "cnpjDaAssociacao": "46901064000164",
