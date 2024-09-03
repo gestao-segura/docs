@@ -12,13 +12,23 @@ Esta API permite que integradores registrem licenciados e autentiquem usuários 
 
 ---
 
+## Postman
+
+[Baixar Coleção Postman - Sistema Gestão Segura](./Sistema%20Gestão%20Segura.postman_collection.json)
+
+---
+
 ## Diagrama de Sequência - Cadastro de Licenciado
 
 ![Diagrama de Cadastro de Licenciado](./sequencia-cadastro-do-licenciado.png)
 
+---
+
 ## Diagrama de Sequência - Ingresso do Usuário
 
 ![Diagrama de Ingresso do Usuário](./sequencia-ingressar-usuario.png)
+
+---
 
 ## Obter Token de Autenticação
 

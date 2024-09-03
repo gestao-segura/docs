@@ -1,0 +1,600 @@
+{
+	"info": {
+		"_postman_id": "4d44247f-db48-4deb-88ef-945025152b79",
+		"name": "Sistema Gestão Segura",
+		"description": "Esta API permite que integradores registrem licenciados e autentiquem usuários de outro sistema no sistema interno, sem a necessidade de passar pela tela de login.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25388978"
+	},
+	"item": [
+		{
+			"name": "Ingressar Usuário",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nomeDaAssociacao\": \"Nome da Associacao\",\n    \"codigoMobile\": \"456\",\n    \"cnpjDaAssociacao\": \"46901064000164\",\n    \"usuario\": {\n        \"nome\": \"Nome\",\n        \"sobrenome\": \"Sobrenome\",\n        \"email\": \"email@email.com\",\n        \"username\": \"username\",\n        \"acesso\": [\n            {\n                \"modulo\": \"Eventos\",\n                \"perfil\": \"Administradores\",\n                \"acessar\": true\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{apiCore}}/acessos",
+					"host": [
+						"{{apiCore}}"
+					],
+					"path": [
+						"acessos"
+					]
+				},
+				"description": "Este endpoint permite que um usuário autenticado em outro sistema seja autenticado no sistema interno, sem a necessidade de passar pela tela de login."
+			},
+			"response": [
+				{
+					"name": "Ingressar Usuário",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer •••••••",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nomeDaAssociacao\": \"Nome da Associacao\",\n    \"codigoMobile\": \"456\",\n    \"cnpjDaAssociacao\": \"46901064000164\", //cnpj\n    \"usuario\": {\n        \"nome\": \"Nome\",\n        \"sobrenome\": \"Sobrenome\",\n        \"email\": \"email@email.com\",\n        \"username\": \"username\",\n        \"acesso\": [\n            {\n                \"modulo\": \"Eventos\",\n                \"perfil\": \"Administradores\",\n                \"acessar\": true\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.gestaosegura.app/core/acessos",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gestaosegura",
+								"app"
+							],
+							"path": [
+								"core",
+								"acessos"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 03 Sep 2024 14:27:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-RateLimit-Remaining-Minute",
+							"value": "179"
+						},
+						{
+							"key": "X-RateLimit-Limit-Minute",
+							"value": "180"
+						},
+						{
+							"key": "RateLimit-Remaining",
+							"value": "179"
+						},
+						{
+							"key": "RateLimit-Limit",
+							"value": "180"
+						},
+						{
+							"key": "RateLimit-Reset",
+							"value": "29"
+						},
+						{
+							"key": "X-Kong-Upstream-Latency",
+							"value": "1199"
+						},
+						{
+							"key": "X-Kong-Proxy-Latency",
+							"value": "2"
+						},
+						{
+							"key": "Via",
+							"value": "kong/3.1.1"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15724800; includeSubDomains"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"url\": \"https://gestaosegura.app/?a=*****************************************\",\n    \"token\": \"*****************************************\",\n    \"expiracao\": \"2024-09-03T14:32:31.7535329+00:00\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var res = pm.response.json();",
+							"pm.environment.set('token', res.access_token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "backoffice",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "{{integradorUsuario}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{integradorSenha}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://sso.{{dominio}}/realms/admin/protocol/openid-connect/token",
+					"protocol": "https",
+					"host": [
+						"sso",
+						"{{dominio}}"
+					],
+					"path": [
+						"realms",
+						"admin",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				},
+				"description": "Este endpoint permite que o integrador obtenha um token de autenticação, que é necessário para realizar outras operações, como registrar licenciados e autenticar usuários."
+			},
+			"response": [
+				{
+					"name": "Get Token",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "backoffice",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "•••••••",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "•••••••",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://sso.gestaosegura.app/realms/admin/protocol/openid-connect/token",
+							"protocol": "https",
+							"host": [
+								"sso",
+								"gestaosegura",
+								"app"
+							],
+							"path": [
+								"realms",
+								"admin",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 03 Sep 2024 14:27:21 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2247"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "KEYCLOAK_LOCALE=pt-BR;Version=1;Path=/realms/admin/;Secure;HttpOnly"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "no-referrer"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15724800; includeSubDomains"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access_token\": \"*****************************************\",\n    \"expires_in\": 300,\n    \"refresh_expires_in\": 1800,\n    \"refresh_token\": \"*****************************************\",\n    \"token_type\": \"Bearer\",\n    \"not-before-policy\": 0,\n    \"session_state\": \"*****************************************\",\n    \"scope\": \"email profile\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obter Grupos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{apiCore}}/grupos/{{cnpj}}",
+					"host": [
+						"{{apiCore}}"
+					],
+					"path": [
+						"grupos",
+						"{{cnpj}}"
+					]
+				},
+				"description": "Este endpoint permite que o integrador obtenha a lista de grupos de usuários configurados para um determinado licenciado. É importante para que o integrador saiba a quais grupos os usuários serão vinculados.  \n  \nA variável {{cnpj}} equivale um cnpj sem pontuaćão. Ex: 35796420000100."
+			},
+			"response": [
+				{
+					"name": "Obter Grupos",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer •••••••",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.gestaosegura.app/core/grupos/46901064000164",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gestaosegura",
+								"app"
+							],
+							"path": [
+								"core",
+								"grupos",
+								"46901064000164"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 03 Sep 2024 14:28:27 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-RateLimit-Remaining-Minute",
+							"value": "177"
+						},
+						{
+							"key": "X-RateLimit-Limit-Minute",
+							"value": "180"
+						},
+						{
+							"key": "RateLimit-Remaining",
+							"value": "177"
+						},
+						{
+							"key": "RateLimit-Limit",
+							"value": "180"
+						},
+						{
+							"key": "RateLimit-Reset",
+							"value": "33"
+						},
+						{
+							"key": "X-Kong-Upstream-Latency",
+							"value": "5"
+						},
+						{
+							"key": "X-Kong-Proxy-Latency",
+							"value": "0"
+						},
+						{
+							"key": "Via",
+							"value": "kong/3.1.1"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15724800; includeSubDomains"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    \"Administradores\"\n]"
+				}
+			]
+		},
+		{
+			"name": "Registrar Licenciado",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"licenciado\": {\n        \"telefone\": \"7\",\n        \"email\": \"email@email.com.br\",\n        \"responsavel\": \"Gilberto Ferreira\",\n        \"codigoMobile\": \"10\",\n        \"pessoaJuridica\": {\n            \"razaoSocial\": \"Associacao Teste\",\n            \"nomeFantasia\": \"Associacao Teste\",\n            \"cnpj\": \"35796420000100\"\n        },\n        \"usuario\": {\n           \"nome\": \"Teste\",\n           \"sobrenome\": \"Teste\",\n           \"email\": \"email@email.com.br\",\n           \"login\": \"teste-01\"\n        },\n        \"endereco\": {\n            \"logradouro\": \"Rua Desembargador Paulo Alonso\",\n            \"complemento\": \"apt 204\",\n            \"numero\": \"767\",\n            \"bairro\": \"Recreio\",\n            \"cidade\": \"Rio de Janeiro\",\n            \"estado\": \"Rio de Janeiro\",\n            \"pais\": \"Brasil\",\n            \"cep\": \"22790540\"\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{apiCore}}/licenciados",
+					"host": [
+						"{{apiCore}}"
+					],
+					"path": [
+						"licenciados"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Adicionar Licenciado",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer •••••••",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"licenciado\": {\n        \"telefone\": \"7\",\n        \"email\": \"email@email.com.br\",\n        \"responsavel\": \"Gilberto Ferreira\",\n        \"codigoMobile\": \"10\",\n        \"pessoaJuridica\": {\n            \"razaoSocial\": \"Associacao Teste\",\n            \"nomeFantasia\": \"Associacao Teste\",\n            \"cnpj\": \"35796420000100\"\n        },\n        \"usuario\": {\n           \"nome\": \"Teste\",\n           \"sobrenome\": \"Teste\",\n           \"email\": \"email@email.com.br\",\n           \"login\": \"teste-01\"\n        },\n        \"endereco\": {\n            \"logradouro\": \"Rua Desembargador Paulo Alonso\",\n            \"complemento\": \"apt 204\",\n            \"numero\": \"767\",\n            \"bairro\": \"Recreio\",\n            \"cidade\": \"Rio de Janeiro\",\n            \"estado\": \"Rio de Janeiro\",\n            \"pais\": \"Brasil\",\n            \"cep\": \"22790540\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.gestaosegura.app/core/licenciados",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gestaosegura",
+								"app"
+							],
+							"path": [
+								"core",
+								"licenciados"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 03 Sep 2024 15:09:14 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-RateLimit-Remaining-Minute",
+							"value": "179"
+						},
+						{
+							"key": "X-RateLimit-Limit-Minute",
+							"value": "180"
+						},
+						{
+							"key": "RateLimit-Remaining",
+							"value": "179"
+						},
+						{
+							"key": "RateLimit-Limit",
+							"value": "180"
+						},
+						{
+							"key": "RateLimit-Reset",
+							"value": "48"
+						},
+						{
+							"key": "Location",
+							"value": "http://core-api/licenciados/5ccf4197-202a-4ab7-8f59-15676066dc0f"
+						},
+						{
+							"key": "X-Kong-Upstream-Latency",
+							"value": "1966"
+						},
+						{
+							"key": "X-Kong-Proxy-Latency",
+							"value": "2"
+						},
+						{
+							"key": "Via",
+							"value": "kong/3.1.1"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=15724800; includeSubDomains"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"licenciadoId\": \"5ccf4197-202a-4ab7-8f59-15676066dc0f\",\n    \"senhaProvisoria\": \"***************************************\"\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
