@@ -2,13 +2,22 @@
 title Ingressar Usuário
 actor Integrador
 participant "Sso" as Sso
-participant "Api do integrador" as ApiIntegrador
+participant "Api do Integrador" as ApiIntegrador
 participant "Sistema Gestão Segura" as GestaoSegura
 
-Integrador -> Sso: Obtem o token de autenticação (Obter Token de Autenticação)
-Sso --> Integrador: Retorna o access token
+group 1. Obter Token de Autenticação
+    Integrador -> Sso: Obtem o token de autenticação (Obter Token de Autenticação)
+    Sso --> Integrador: Retorna o access token
+end group
 
-Integrador -> ApiIntegrador: Consome a rota Ingressar Usuário
-ApiIntegrador --> Integrador: Api retorna a url para o acesso autenticado no sistema Gestão Segura
-Integrador -> GestaoSegura: Redireciona para a url informada.
+group 2. Obter Grupos de Usuários
+    Integrador -> ApiIntegrador: Obtem os grupos do usuário (Obter Grupos de Usuários)
+    ApiIntegrador --> Integrador: Retorna um array com os grupos do usuário.
+end group
+
+group 3. Ingressar Usuário
+    Integrador -> ApiIntegrador: Consome a rota Ingressar Usuário
+    ApiIntegrador --> Integrador: Api retorna a url para o acesso autenticado no sistema Gestão Segura
+    Integrador -> GestaoSegura: Redireciona para a url informada.
+end group
 @enduml

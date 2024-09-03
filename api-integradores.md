@@ -20,13 +20,13 @@ Esta API permite que integradores registrem licenciados e autentiquem usuários 
 
 ## Diagrama de Sequência - Cadastro de Licenciado
 
-![Diagrama de Cadastro de Licenciado](./sequencia-cadastro-do-licenciado.png)
+![Diagrama de Cadastro de Licenciado](./sequencia-cadastro-licenciado.png)
 
 ---
 
 ## Diagrama de Sequência - Ingresso do Usuário
 
-![Diagrama de Ingresso do Usuário](./sequencia-ingressar-usuario.png)
+![Diagrama de Ingresso do Usuário](./sequencia-ingresso-usuario.png)
 
 ---
 

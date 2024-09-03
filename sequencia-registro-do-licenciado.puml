@@ -2,11 +2,15 @@
 title Cadastro do Licenciado
 actor Integrador
 participant "Sso" as Sso
-participant "Api do integrador" as ApiIntegrador
+participant "Api do Integrador" as ApiIntegrador
 
-Integrador -> Sso: Obtem o token de autenticação (Obter Token de Autenticação)
-Sso --> Integrador: Retorna o access token
+group 1. Obter Token de Autenticação
+    Integrador -> Sso: Obtem o token de autenticação (Obter Token de Autenticação)
+    Sso --> Integrador: Retorna o access token
+end group
 
-Integrador -> ApiIntegrador: Registra o licenciado (Registrar Licenciado)
-ApiIntegrador --> Integrador: Retorna o id do licenciado e senha provisória para o usuário master
+group 2. Registrar o Licenciado
+    Integrador -> ApiIntegrador: Registra o licenciado (Registrar Licenciado)
+    ApiIntegrador --> Integrador: Retorna o id do licenciado e senha provisória para o usuário master
+end group
 @enduml
