@@ -1,5 +1,5 @@
 
-# Documentação da API - Sistema Gestão Segura
+# Api Integradores
 
 Esta API permite que integradores registrem licenciados e autentiquem usuários de outro sistema no sistema interno, sem a necessidade de passar pela tela de login.
 
