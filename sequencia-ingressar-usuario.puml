@@ -1,0 +1,14 @@
+@startuml
+title Ingressar Usuário
+actor Integrador
+participant "Sso" as Sso
+participant "Api do integrador" as ApiIntegrador
+participant "Sistema Gestão Segura" as GestaoSegura
+
+Integrador -> Sso: Obtem o token de autenticação (Obter Token de Autenticação)
+Sso --> Integrador: Retorna o access token
+
+Integrador -> ApiIntegrador: Consome a rota Ingressar Usuário
+ApiIntegrador --> Integrador: Api retorna a url para o acesso autenticado no sistema Gestão Segura
+Integrador -> GestaoSegura: Redireciona para a url informada.
+@enduml

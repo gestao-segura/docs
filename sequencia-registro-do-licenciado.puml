@@ -1,0 +1,12 @@
+@startuml
+title Cadastro do Licenciado
+actor Integrador
+participant "Sso" as Sso
+participant "Api do integrador" as ApiIntegrador
+
+Integrador -> Sso: Obtem o token de autenticação (Obter Token de Autenticação)
+Sso --> Integrador: Retorna o access token
+
+Integrador -> ApiIntegrador: Registra o licenciado (Registrar Licenciado)
+ApiIntegrador --> Integrador: Retorna o id do licenciado e senha provisória para o usuário master
+@enduml
