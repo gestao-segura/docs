@@ -12,6 +12,14 @@ Esta API permite que integradores registrem licenciados e autentiquem usuários 
 
 ---
 
+## Diagrama de Sequência - Cadastro de Licenciado
+
+![Diagrama de Cadastro de Licenciado](./sequencia-cadastro-do-licenciado.png)
+
+## Diagrama de Sequência - Ingresso do Usuário
+
+![Diagrama de Ingresso do Usuário](./sequencia-ingressar-usuario.png)
+
 ## Obter Token de Autenticação
 
 Este endpoint permite que o integrador obtenha um token de autenticação, que é necessário para realizar outras operações, como registrar licenciados e autenticar usuários.
