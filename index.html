@@ -1,0 +1,2675 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação da API</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-4">Documentação da API</h1>
+
+        <div class="mb-6 bg-blue-100 p-4 rounded-lg border-l-4 border-blue-500">
+            <h2 class="text-xl font-semibold text-blue-700">Autenticação e Identificação do Tenant</h2>
+            <p class="text-gray-700 mt-2">
+                Para consumir esta API, é necessário obter uma <strong>apiKey</strong> e um <strong>tenant</strong>, que
+                serão fornecidos pela associação.
+                Ambos são obrigatórios e devem ser incluídos no cabeçalho da requisição.
+            </p>
+            <ul class="list-disc pl-6 text-gray-700 mt-2">
+                <li><strong>X-Tenant-ID</strong>: Representa o identificador do tenant.</li>
+                <li><strong>Authorization</strong>: Deve conter a apiKey fornecida.</li>
+            </ul>
+        </div>
+
+        <div class="mb-6 bg-yellow-100 p-4 rounded-lg border-l-4 border-yellow-500">
+            <h2 class="text-xl font-semibold text-yellow-700">Limites de Uso da API</h2>
+            <p class="text-gray-700 mt-2">
+                Para garantir a estabilidade e o desempenho da API, aplicamos limites de requisição. Atualmente, o
+                limite é de:
+            </p>
+            <ul class="list-disc pl-6 text-gray-700 mt-2">
+                <li><strong>1 requisição por segundo</strong> por chave de API.</li>
+            </ul>
+            <p class="text-gray-700 mt-2">
+                Caso o limite seja ultrapassado, a API poderá responder com um erro <strong>429 Too Many
+                    Requests</strong>.
+            </p>
+        </div>
+
+
+        <!-- Informações da organização -->
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold">1. Obter Organização</h2>
+            <p class="text-gray-700">Recupera as informações detalhadas de uma organização.</p>
+
+            <div class="bg-gray-200 p-4 rounded mt-2">
+                <p class="font-mono text-sm">GET /organizacoes/{id}</p>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold">Exemplo de Requisição</h3>
+            <pre class="bg-gray-900 text-white p-4 rounded text-sm overflow-auto">
+curl --location 'http://localhost:3000/organizacoes/7a7a0510-3c4b-42f9-b67e-0a997a2cabb3' \
+--header 'X-Tenant-ID: de87a4c4-6a00-4a38-9896-5b5b61a00d1c' \
+--header 'Authorization: ec633db5-69ad-4d81-8cd0-64a18545840f'</pre>
+        </div>
+
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold">Exemplo de Resposta</h3>
+            <pre class="bg-gray-900 text-white p-4 rounded text-sm overflow-auto">
+{
+    "nome": "OCP",
+    "descricao": "",
+    "codigo": "O",
+    "cnpj": "29893466000145",
+    "escala": {
+        "domingo": {
+            "ativo": false
+        },
+        "segunda": {
+            "ativo": true,
+            "inicio": "00:00",
+            "fim": "23:30"
+        },
+        "terca": {
+            "ativo": true,
+            "inicio": "00:00",
+            "fim": "23:30"
+        },
+        "quarta": {
+            "ativo": true,
+            "inicio": "00:00",
+            "fim": "23:30"
+        },
+        "quinta": {
+            "ativo": true,
+            "inicio": "00:00",
+            "fim": "23:30"
+        },
+        "sexta": {
+            "ativo": true,
+            "inicio": "00:00",
+            "fim": "23:30"
+        },
+        "sabado": {
+            "ativo": false
+        }
+    },
+    "regionais": [
+        {
+            "codigo": "Regional 1",
+            "descricao": "teste",
+            "id": "ac6d98ff-d394-4290-85d6-ed5455456c34",
+            "cadastro": "2025-03-05T12:15:30.688Z",
+            "atualizacao": "2025-03-05T12:17:11.914Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        }
+    ],
+    "cooperativas": [
+        {
+            "codigo": "Cooperativa",
+            "descricao": "Cooperativa",
+            "id": "6b5af757-d3c5-4271-b381-33731a7ab870",
+            "cadastro": "2025-03-05T12:16:02.928Z",
+            "atualizacao": "2025-03-05T12:17:11.914Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        }
+    ],
+    "voluntarios": [
+        {
+            "codigo": "Voluntário",
+            "descricao": "voluntário",
+            "id": "dc58a83c-0322-49c5-8ed1-98b55946aa02",
+            "cadastro": "2025-03-05T12:16:02.929Z",
+            "atualizacao": "2025-03-05T12:17:11.914Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        }
+    ],
+    "tiposDeVeiculos": [
+        {
+            "nome": "Automóvel",
+            "codigo": "A",
+            "categoria": "Leve",
+            "id": "b6578941-f785-4e65-b72b-ba77041f5099",
+            "cadastro": "2025-03-05T12:17:11.916Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Caminhonete",
+            "codigo": "C",
+            "categoria": "Medio",
+            "id": "78c0f872-7683-4be9-a80a-6cd10648bda0",
+            "cadastro": "2025-03-05T12:17:11.917Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        }
+    ],
+    "historicosMensais": [
+        {
+            "mes": 3,
+            "ano": 2025,
+            "faturamento": 100000,
+            "totalVeiculos": 20000,
+            "id": "c3e8a708-f848-4910-b1a8-2bed439ef92c",
+            "cadastro": "2025-03-05T12:16:42.36Z",
+            "atualizacao": "2025-03-05T12:17:11.915Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "mes": 2,
+            "ano": 2025,
+            "faturamento": 90000,
+            "totalVeiculos": 19000,
+            "id": "4995f72a-4aec-40a7-85a3-801b1d4e5f2f",
+            "cadastro": "2025-03-05T12:16:42.371Z",
+            "atualizacao": "2025-03-05T12:17:11.915Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        }
+    ],
+    "categoriasDeVeiculos": [
+        "Passeio",
+        "Uber",
+        "Táxi"
+    ],
+    "tiposDeCombustiveis": [
+        "Gasolina",
+        "Etanol",
+        "Diesel",
+        "GNV",
+        "Elétrico",
+        "Hibrido",
+        "Flex",
+        "Biodiesel",
+        "Hidrogênio",
+        "Outros"
+    ],
+    "id": "769fd020-09ae-4e7d-b4ad-fd1f63a5fcb7",
+    "cadastro": "2024-09-06T09:29:27.461Z",
+    "atualizacao": "2025-03-05T12:17:11.914Z",
+    "ativo": true,
+    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+    "tenantName": "Maess Systems"
+}</pre>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-semibold">Códigos de Status</h3>
+            <ul class="list-disc pl-6 text-gray-700">
+                <li><strong>200</strong> - Sucesso</li>
+                <li><strong>400</strong> - Requisição inválida</li>
+                <li><strong>401</strong> - Não autorizado</li>
+                <li><strong>404</strong> - Organização não encontrada</li>
+                <li><strong>429</strong> - Limite de requisições por segundo violado</li>
+                <li><strong>500</strong> - Erro interno do servidor</li>
+            </ul>
+        </div>
+        <!-- Fim de Informações da organização-->
+
+        <!--Consulta de Esteiras -->
+        <div class="mb-6 mt-6">
+            <h2 class="text-xl font-semibold">2. Obter Esteiras</h2>
+            <p class="text-gray-700">Recupera informações detalhadas sobre as esteiras em que a organização está
+                relacionada.</p>
+
+            <div class="bg-gray-200 p-4 rounded mt-2">
+                <p class="font-mono text-sm">GET /organizacoes/{id}/esteiras</p>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold">Exemplo de Requisição</h3>
+            <pre class="bg-gray-900 text-white p-4 rounded text-sm overflow-auto">
+curl --location 'http://localhost:3000/organizacoes/769fd020-09ae-4e7d-b4ad-fd1f63a5fcb7/esteiras' \
+--header 'X-Tenant-ID: de87a4c4-6a00-4a38-9896-5b5b61a00d1c' \
+--header 'Authorization: teste'</pre>
+        </div>
+
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold">Exemplo de Resposta</h3>
+            <pre class="bg-gray-900 text-white p-4 rounded text-sm overflow-auto">
+[
+{
+    "nome": "Eventos",
+    "descricao": "",
+    "tiposDeEventos": [
+        {
+            "nome": "Roubo",
+            "codigo": "R",
+            "padraoParaIntegracoes": false,
+            "tags": "Roubo,False,8e2d8a4b-826a-41aa-825c-30c7ff0835f7",
+            "campos": [
+                {
+                    "nome": "Boletim de Ocorrência",
+                    "tipo": "Anexo",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "b7d6315c-d9a8-4665-9747-8e1f5164b852",
+                    "cadastro": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Termo do associado ",
+                    "tipo": "Anexo",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "c3059989-31e6-4fed-9c49-ef98cebb2bc8",
+                    "cadastro": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Cnh do Associado",
+                    "tipo": "Anexo",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "0cbc8401-748c-4fa9-889a-2991b3720cb4",
+                    "cadastro": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Cnh do Terceiro",
+                    "tipo": "Anexo",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "0fdc43fc-3c43-46dd-95c6-bcc8b67e5b5b",
+                    "cadastro": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "id": "8e2d8a4b-826a-41aa-825c-30c7ff0835f7",
+            "cadastro": "2024-07-18T17:02:36.591Z",
+            "atualizacao": "2025-02-28T13:07:55.024Z",
+            "ativo": false,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Colisão",
+            "codigo": "C",
+            "padraoParaIntegracoes": true,
+            "tags": "Colisão,False,76fed550-f1bb-42db-8016-2310d882106b",
+            "campos": [
+                {
+                    "nome": "Descreva o Evento",
+                    "tipo": "AreaDeTexto",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "610bc0aa-6554-4fa9-b8d6-3951ea05a836",
+                    "cadastro": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Boletim de Ocorrência",
+                    "tipo": "Anexo",
+                    "obrigatoria": false,
+                    "opcoes": [],
+                    "id": "2a9bed83-b7d3-4c14-90bd-49a668eb30b3",
+                    "cadastro": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "CNH Condutor",
+                    "tipo": "Anexo",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "cdefd812-4528-466f-a6d3-a58a5e088bf7",
+                    "cadastro": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "CNH Terceiro",
+                    "tipo": "Anexo",
+                    "obrigatoria": false,
+                    "opcoes": [],
+                    "id": "daedfd1a-22aa-4d5a-acbb-4028ecff4af8",
+                    "cadastro": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Data e Hora do Evento",
+                    "tipo": "DataEHora",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "1fd8d9c3-9ce4-4d11-9895-859a87865fa4",
+                    "cadastro": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "id": "76fed550-f1bb-42db-8016-2310d882106b",
+            "cadastro": "2024-07-18T17:02:36.593Z",
+            "atualizacao": "2025-02-28T13:07:55.024Z",
+            "ativo": false,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Incêndio",
+            "codigo": "I",
+            "padraoParaIntegracoes": false,
+            "tags": "Incêndio,False,7adccc34-2923-41d8-9dc1-140934d9b9e3",
+            "campos": [
+                {
+                    "nome": "Foto do Veiculo",
+                    "tipo": "Anexo",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "8cb94f48-d0dc-4afb-adbf-5e9f2ed4a505",
+                    "cadastro": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Data e Hora do Evento",
+                    "tipo": "DataEHora",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "0df3b53a-add2-41fd-9b7b-fa02c6c9c920",
+                    "cadastro": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "id": "7adccc34-2923-41d8-9dc1-140934d9b9e3",
+            "cadastro": "2024-08-01T18:07:05.295Z",
+            "atualizacao": "2025-02-28T13:07:55.024Z",
+            "ativo": false,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Terceiro",
+            "codigo": "3",
+            "padraoParaIntegracoes": false,
+            "tags": "Terceiro,False,f7e19469-58e3-4943-8919-a2291e80deee",
+            "campos": [
+                {
+                    "nome": "Descreva o Evento",
+                    "tipo": "AreaDeTexto",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "9c5aed49-6de4-4f31-9015-bc9bdf4e6e4b",
+                    "cadastro": "2025-02-28T13:07:55.025Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Boletim de Ocorrência ",
+                    "tipo": "Anexo",
+                    "obrigatoria": false,
+                    "opcoes": [],
+                    "id": "f2752aff-b297-45d6-9675-f290db3e4ac5",
+                    "cadastro": "2025-02-28T13:07:55.025Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "CNH Terceiro",
+                    "tipo": "Anexo",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "adf52ea9-aeba-48fe-83e8-374c794d7a00",
+                    "cadastro": "2025-02-28T13:07:55.025Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Documento Veículo Terceiro",
+                    "tipo": "Anexo",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "3a8109e0-e35d-4e00-86af-82f38037cfef",
+                    "cadastro": "2025-02-28T13:07:55.025Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Foto do Acidente",
+                    "tipo": "Anexo",
+                    "obrigatoria": false,
+                    "opcoes": [],
+                    "id": "a54e72d7-b6ac-4cab-b89e-8a39aee0ba16",
+                    "cadastro": "2025-02-28T13:07:55.025Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "id": "f7e19469-58e3-4943-8919-a2291e80deee",
+            "cadastro": "2024-09-04T21:48:24.393Z",
+            "atualizacao": "2025-02-28T13:07:55.025Z",
+            "ativo": false,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Colisão Terceiro",
+            "codigo": "",
+            "padraoParaIntegracoes": false,
+            "tags": "Colisão Terceiro,True,634287fe-29de-49a2-9be3-cbb2d97bc684",
+            "id": "634287fe-29de-49a2-9be3-cbb2d97bc684",
+            "cadastro": "2025-01-15T18:45:04.989Z",
+            "atualizacao": "2025-02-28T13:07:55.025Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        }
+    ],
+    "etapas": [
+        {
+            "nome": "Abertura",
+            "descricao": "",
+            "estrategiaDeSla": "Persistente",
+            "ordem": 0,
+            "visivelParaOAssociado": true,
+            "status": [
+                {
+                    "nome": "No prazo",
+                    "cor": "#4CAF50",
+                    "tempo": 1,
+                    "ordem": 0,
+                    "habilitado": true,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": true,
+                    "id": "ba557c98-d4ae-458f-80d1-12f264628191",
+                    "cadastro": "2025-02-18T15:06:01.374Z",
+                    "atualizacao": "2025-02-28T13:07:55.022Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Alerta",
+                    "cor": "#FFC107",
+                    "tempo": 1,
+                    "ordem": 1,
+                    "habilitado": true,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": true,
+                    "id": "8d2f72d0-358d-4b42-a86a-b7144de47526",
+                    "cadastro": "2025-02-18T15:06:01.375Z",
+                    "atualizacao": "2025-02-28T13:07:55.022Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Critico",
+                    "cor": "#F44336",
+                    "tempo": 1,
+                    "ordem": 2,
+                    "habilitado": true,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": true,
+                    "id": "29fb446d-375e-4001-93da-d6fd300c275c",
+                    "cadastro": "2025-02-18T15:06:01.375Z",
+                    "atualizacao": "2025-02-28T13:07:55.022Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "fases": [
+                {
+                    "nome": "Documentação Pendente",
+                    "id": "8e8b8bd2-3e7b-4160-9e50-21967c88d587",
+                    "cadastro": "2024-11-07T12:27:17.939Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Fotos pendentes",
+                    "id": "1d38094f-384a-4460-959d-efe531739508",
+                    "cadastro": "2024-11-07T12:27:17.939Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Domumentação Completa",
+                    "id": "3eb2ef6e-882c-46a7-b25e-c08a5cc9ac00",
+                    "cadastro": "2024-11-07T12:27:17.939Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Teste",
+                    "id": "9664caa5-a8de-453f-9448-861dff0f4764",
+                    "cadastro": "2024-11-07T13:09:15.085Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "tarefas": [
+                {
+                    "nome": "BO foi anexado?",
+                    "tipo": "VerdadeiroOuFalso",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "948c0799-ab7b-4361-9de0-0c9344f1f8af",
+                    "cadastro": "2024-07-31T18:39:01.207Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Quem realizou a abertura?",
+                    "tipo": "CaixaDeSelecao",
+                    "obrigatoria": false,
+                    "opcoes": [
+                        {
+                            "nome": "Associado",
+                            "id": "093bd9bd-6035-443e-af82-628c790613b9",
+                            "cadastro": "2024-11-07T12:27:17.94Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Condudor",
+                            "id": "28c36526-91c9-49d4-924c-ec3b6b0699ad",
+                            "cadastro": "2024-11-07T12:27:17.94Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Representante Legal",
+                            "id": "2b00b49d-9cc7-470f-acb7-15a1cbb08d1e",
+                            "cadastro": "2024-11-07T12:27:17.94Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        }
+                    ],
+                    "id": "541e38e9-5321-4c5b-85e9-a1efd16de67e",
+                    "cadastro": "2024-11-07T12:27:17.939Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Teste",
+                    "tipo": "Dinheiro",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "a0cea796-c1a9-48a9-a73a-cac087ff1dca",
+                    "cadastro": "2025-01-20T12:43:15.263Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "id": "658d8630-f539-4b2c-a2af-7c8ed6917cf2",
+            "cadastro": "2024-07-18T17:02:36.567Z",
+            "atualizacao": "2025-02-28T13:07:55.022Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Análise",
+            "descricao": "",
+            "estrategiaDeSla": "Renovavel",
+            "ordem": 1,
+            "visivelParaOAssociado": true,
+            "status": [
+                {
+                    "nome": "No prazo",
+                    "cor": "#4CAF50",
+                    "tempo": 2,
+                    "ordem": 0,
+                    "habilitado": true,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": true,
+                    "id": "baa74515-0ed1-433a-8d87-a0d5d1cdfa20",
+                    "cadastro": "2025-02-18T13:53:34.843Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Alerta",
+                    "cor": "#FFC107",
+                    "tempo": 4,
+                    "ordem": 1,
+                    "habilitado": true,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": true,
+                    "id": "df88a527-b588-4e53-afff-32da3ed3547a",
+                    "cadastro": "2025-02-18T13:53:34.843Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Critico",
+                    "cor": "#F44336",
+                    "tempo": 5,
+                    "ordem": 2,
+                    "habilitado": true,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": true,
+                    "id": "9bfd2f84-ea4a-49b8-a7db-387b7f68b729",
+                    "cadastro": "2025-02-18T13:53:34.843Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "tarefas": [
+                {
+                    "nome": "Gravação da Assist. 24 hrs",
+                    "descricao": "Áudio",
+                    "tipo": "Anexo",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "08a56910-209b-4bad-8cff-17ee01f63d45",
+                    "cadastro": "2024-08-02T16:41:54.292Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "id": "201c5da8-c39d-410e-86f4-f9fa642b7f71",
+            "cadastro": "2024-07-18T17:02:36.589Z",
+            "atualizacao": "2025-02-28T13:07:55.023Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Jurídico",
+            "descricao": "",
+            "estrategiaDeSla": "Persistente",
+            "ordem": 2,
+            "visivelParaOAssociado": false,
+            "status": [
+                {
+                    "nome": "No prazo",
+                    "cor": "#4CAF50",
+                    "ordem": 0,
+                    "habilitado": false,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": false,
+                    "id": "2fd527a9-e4cf-453c-a304-04c0afe0fac7",
+                    "cadastro": "2025-02-18T18:02:37.456Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Alerta",
+                    "cor": "#FFC107",
+                    "ordem": 1,
+                    "habilitado": false,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": false,
+                    "id": "bfef9510-78e7-4efb-8570-54ca578769d7",
+                    "cadastro": "2025-02-18T18:02:37.456Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Critico",
+                    "cor": "#F44336",
+                    "ordem": 2,
+                    "habilitado": false,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": false,
+                    "id": "a4cfa59b-3e7a-4533-b064-2cd7c87f1992",
+                    "cadastro": "2025-02-18T18:02:37.456Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "id": "25380a71-b5d2-4054-a5e9-f3af77d3f989",
+            "cadastro": "2025-02-18T18:02:33.531Z",
+            "atualizacao": "2025-02-28T13:07:55.023Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Oficina",
+            "descricao": "",
+            "estrategiaDeSla": "Persistente",
+            "ordem": 3,
+            "visivelParaOAssociado": true,
+            "status": [
+                {
+                    "nome": "No prazo",
+                    "cor": "#4CAF50",
+                    "ordem": 0,
+                    "habilitado": false,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": false,
+                    "id": "c97e0e73-049a-4a6b-a992-e2700d1d3651",
+                    "cadastro": "2024-11-28T20:15:46.396Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Alerta",
+                    "cor": "#FFC107",
+                    "ordem": 1,
+                    "habilitado": false,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": false,
+                    "id": "bb31ee61-ad07-4856-b792-84aa1cf8b616",
+                    "cadastro": "2024-11-28T20:15:46.397Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Critico",
+                    "cor": "#F44336",
+                    "ordem": 2,
+                    "habilitado": false,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": false,
+                    "id": "e7453f9d-9b7b-4c33-9097-69f7476e9c71",
+                    "cadastro": "2024-11-28T20:15:46.397Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "tarefas": [
+                {
+                    "nome": "Foto do painel do carro ligado",
+                    "tipo": "Anexo",
+                    "obrigatoria": true,
+                    "opcoes": [],
+                    "id": "139979b8-a93d-4b00-bfc5-640a16510fbe",
+                    "cadastro": "2024-11-28T20:15:46.397Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "id": "15ef6693-976a-49ca-be5f-f2b40fa29c0c",
+            "cadastro": "2024-07-18T17:02:36.59Z",
+            "atualizacao": "2025-02-28T13:07:55.023Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Cotação",
+            "descricao": "",
+            "estrategiaDeSla": "Persistente",
+            "ordem": 4,
+            "visivelParaOAssociado": true,
+            "status": [
+                {
+                    "nome": "No prazo",
+                    "cor": "#4CAF50",
+                    "tempo": 3,
+                    "ordem": 0,
+                    "habilitado": true,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": true,
+                    "id": "4333d8a5-f126-4f97-aa0e-0b38195039cd",
+                    "cadastro": "2024-08-02T16:46:25.84Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Alerta",
+                    "cor": "#FFC107",
+                    "tempo": 4,
+                    "ordem": 1,
+                    "habilitado": true,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": true,
+                    "id": "5a851c55-383b-434d-b29d-e6d60f94dd80",
+                    "cadastro": "2024-08-02T16:46:25.841Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Critico",
+                    "cor": "#F44336",
+                    "tempo": 5,
+                    "ordem": 2,
+                    "habilitado": true,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": true,
+                    "id": "c904f08a-481b-436a-a4cb-754e2aa28fbd",
+                    "cadastro": "2024-08-02T16:46:25.841Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "tarefas": [
+                {
+                    "nome": "Cotação Realizada?",
+                    "descricao": "Sinalizar status",
+                    "tipo": "CaixaDeSelecao",
+                    "obrigatoria": false,
+                    "opcoes": [
+                        {
+                            "nome": "Sim",
+                            "id": "ba70d4f0-a0cd-4c77-8928-773fc284a44e",
+                            "cadastro": "2024-08-02T16:46:25.841Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Não se aplica",
+                            "id": "3015ebb8-2406-4d45-936d-702c2e6286ca",
+                            "cadastro": "2024-08-02T16:46:25.841Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        }
+                    ],
+                    "id": "b9c524bc-3303-4737-b810-b7510c6555ff",
+                    "cadastro": "2024-08-02T16:46:25.841Z",
+                    "atualizacao": "2025-02-28T13:07:55.023Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "id": "471e6637-8ef1-4705-8c24-48d4ca1c419f",
+            "cadastro": "2024-07-18T17:02:36.589Z",
+            "atualizacao": "2025-02-28T13:07:55.023Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Regulação",
+            "descricao": "",
+            "estrategiaDeSla": "Persistente",
+            "ordem": 5,
+            "visivelParaOAssociado": true,
+            "status": [
+                {
+                    "nome": "No prazo",
+                    "cor": "#4CAF50",
+                    "tempo": 1,
+                    "ordem": 0,
+                    "habilitado": true,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": true,
+                    "id": "24df14ea-fb37-4ebb-9d2b-5b8ea1f5e5d1",
+                    "cadastro": "2024-08-28T12:33:33.959Z",
+                    "atualizacao": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Alerta",
+                    "cor": "#FFC107",
+                    "tempo": 2,
+                    "ordem": 1,
+                    "habilitado": true,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": true,
+                    "id": "6107e247-259e-48ae-a9c1-9624f2843039",
+                    "cadastro": "2024-08-28T12:33:33.959Z",
+                    "atualizacao": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Critico",
+                    "cor": "#F44336",
+                    "tempo": 5,
+                    "ordem": 2,
+                    "habilitado": true,
+                    "tipoDeTempo": "Minutos",
+                    "usaDiasUteis": true,
+                    "id": "24b05abe-8fa1-4e92-b52e-bee7979b5c53",
+                    "cadastro": "2024-08-28T12:33:33.959Z",
+                    "atualizacao": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "tarefas": [
+                {
+                    "nome": "Valor Orçamento Inicial",
+                    "descricao": "Informar o valor",
+                    "tipo": "Dinheiro",
+                    "obrigatoria": false,
+                    "opcoes": [],
+                    "id": "6b660ff8-97d8-44b9-9f26-ac7f6f6c18e2",
+                    "cadastro": "2024-08-02T16:47:38.411Z",
+                    "atualizacao": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Data da cotação",
+                    "tipo": "DataEHora",
+                    "obrigatoria": false,
+                    "opcoes": [],
+                    "id": "9dab60db-f9ba-42a7-b34c-794f4ca7645b",
+                    "cadastro": "2024-08-28T12:33:33.96Z",
+                    "atualizacao": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Negociação Oficina",
+                    "tipo": "VerdadeiroOuFalso",
+                    "obrigatoria": false,
+                    "opcoes": [],
+                    "id": "a59e41e6-77ec-4022-9b97-e6eefcc5e111",
+                    "cadastro": "2024-08-28T12:33:33.96Z",
+                    "atualizacao": "2025-02-28T13:07:55.024Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "id": "7a10f381-6952-4bec-9e68-c276a20edd9b",
+            "cadastro": "2024-07-18T17:02:36.59Z",
+            "atualizacao": "2025-02-28T13:07:55.024Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Conclusão",
+            "descricao": "",
+            "estrategiaDeSla": "Persistente",
+            "ordem": 6,
+            "visivelParaOAssociado": true,
+            "id": "5affd3c1-c65a-4951-8fc0-6254911b238d",
+            "cadastro": "2024-07-18T17:02:36.59Z",
+            "atualizacao": "2025-02-28T13:07:55.024Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Pós Conclusão",
+            "descricao": "",
+            "estrategiaDeSla": "Persistente",
+            "ordem": 7,
+            "visivelParaOAssociado": true,
+            "id": "50459fa6-71c9-4d99-8010-af94db73ec4b",
+            "cadastro": "2025-01-15T17:11:34.998Z",
+            "atualizacao": "2025-02-28T13:07:55.024Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        }
+    ],
+    "mensagensPadrao": [
+        {
+            "id": "0ca460ee-04a0-4ac3-92e9-67549ec4e329",
+            "valor": "Prezado Associado, informamos que o seu veículo foi encaminhado para a oficina credenciada AutoRepair localizada na Rua dos Mecânicos, 123. O prazo estimado para conclusão dos reparos é de 7 dias úteis. Agradecemos a sua paciência e compreensão.\n"
+        },
+        {
+            "id": "68f3df89-3d7a-4daa-9a7f-a17947ef600e",
+            "valor": "Caro Associado, o reparo do seu veículo foi iniciado conforme o laudo da vistoria. Estimamos que os serviços serão concluídos em até 5 dias úteis. Em caso de dúvidas, entre em contato com nossa central de atendimento.\n"
+        },
+        {
+            "id": "1df4d14f-98d7-430c-be63-050113963116",
+            "valor": "<p>Informamos que o evento de sinistro foi aberto. Estamos trabalhando para resolver o seu caso o mais breve possível. Acompanhe o status pelo nosso portal ou entre em contato com nosso suporte.</p>"
+        },
+        {
+            "id": "6507d1c3-8ad3-4c1f-aa3b-843db03478a9",
+            "valor": "Prezado Associado, o reparo do seu veículo está em progresso e os serviços de funilaria foram concluídos. A próxima etapa será a pintura, prevista para ser finalizada em 3 dias úteis. Agradecemos pela sua paciência.\n"
+        },
+        {
+            "id": "b74f2e2b-6bf8-4c0d-9372-5bcbf1e1c34d",
+            "valor": "<p>Olá, esta é uma mensagem de teste para atualizar o histórico do evento do seu veículo.</p>"
+        }
+    ],
+    "statusDeOficinas": [
+        {
+            "nome": "Aberto",
+            "ordem": 0,
+            "id": "8819e95b-4f32-4564-a854-ba06f9ff33a6",
+            "cadastro": "2024-09-18T20:13:06.853Z",
+            "atualizacao": "2025-02-28T13:07:55.025Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Em andamento",
+            "ordem": 0,
+            "id": "f5eaf54a-9d88-418c-a0dd-a5da7d0458dd",
+            "cadastro": "2024-09-18T20:13:06.854Z",
+            "atualizacao": "2025-02-28T13:07:55.025Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Fechado",
+            "ordem": 0,
+            "id": "e37a957f-2b2c-4ab1-a9ab-7528170d99ff",
+            "cadastro": "2024-09-18T20:13:06.854Z",
+            "atualizacao": "2025-02-28T13:07:55.025Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        }
+    ],
+    "statusDeVeiculos": [],
+    "historicosMensais": [],
+    "diretorios": [
+        {
+            "nome": "Fotos Andamento do Reparo",
+            "ordem": 0,
+            "id": "6ecb6b67-ce2f-4486-aded-d41c7a72d280",
+            "cadastro": "2024-11-11T19:45:45.232Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Termo de Quitação",
+            "ordem": 1,
+            "id": "55d2d899-ca0a-48bb-b084-93e84277be6a",
+            "cadastro": "2024-11-11T19:45:45.234Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Vistoria de Qualidade",
+            "ordem": 2,
+            "id": "70d528a5-0aa2-4b96-8918-f42435add02f",
+            "cadastro": "2024-11-11T19:45:45.234Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Feedback",
+            "ordem": 3,
+            "id": "e5c62156-0dc7-46b7-931d-058768b37adb",
+            "cadastro": "2025-02-20T19:26:30.443Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        },
+        {
+            "nome": "Teste",
+            "ordem": 4,
+            "id": "049c88cf-2fa9-49ce-8ae0-0a416d134e5f",
+            "cadastro": "2025-02-20T19:37:59.032Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        }
+    ],
+    "id": "5dd2b815-042e-4ca8-b8fd-0fe34db053c1",
+    "cadastro": "2024-07-18T17:02:36.566Z",
+    "atualizacao": "2025-02-28T13:07:55.022Z"
+}
+]</pre>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-semibold">Códigos de Status</h3>
+            <ul class="list-disc pl-6 text-gray-700">
+                <li><strong>200</strong> - Sucesso</li>
+                <li><strong>400</strong> - Requisição inválida</li>
+                <li><strong>401</strong> - Não autorizado</li>
+                <li><strong>404</strong> - Organização não encontrada</li>
+                <li><strong>429</strong> - Limite de requisições por segundo violado</li>
+                <li><strong>500</strong> - Erro interno do servidor</li>
+            </ul>
+        </div>
+        <!-- Fim de Consulta de Esteiras -->
+
+        <!-- Consulta de Eventos -->
+        <div class="mb-6 mt-6">
+            <h2 class="text-xl font-semibold">3. Obter Eventos</h2>
+            <p class="text-gray-700">Obtenção de eventos de uma organização..</p>
+
+            <div class="bg-gray-200 p-4 rounded mt-2">
+                <p class="font-mono text-sm">GET /organizacoes/{id}/eventos</p>
+            </div>
+        </div>
+
+        <div class="mb-6 bg-green-100 p-4 rounded-lg border-l-4 border-green-500">
+            <h2 class="text-xl font-semibold text-green-700">Filtros Disponíveis</h2>
+            <p class="text-gray-700 mt-2">
+                A consulta permite o uso de diversos filtros opcionais para refinar os resultados. Caso um filtro não
+                seja fornecido, ele será ignorado na busca.
+            </p>
+
+            <ul class="list-disc pl-6 text-gray-700 mt-2">
+                <li><strong>IdOrganizacao</strong> (GUID): Filtra pelo identificador da organização.</li>
+                <li><strong>IdEsteira</strong> (GUID): Filtra pelo identificador da esteira.</li>
+                <li><strong>IdEtapa</strong> (GUID): Filtra pelo identificador da etapa.</li>
+                <li><strong>TipoDeEvento</strong> (GUID): Filtra pelo tipo de evento.</li>
+                <li><strong>Status</strong> (GUID): Filtra pelo status do evento.</li>
+                <li><strong>Tenant</strong> (string): Identificador do tenant.</li>
+                <li><strong>Protocolo</strong> (string): Filtra pelo número do protocolo.</li>
+                <li><strong>Sla</strong> (string): Filtra pelo SLA associado ao evento.</li>
+                <li><strong>Situacao</strong> (string): Filtra pela situação do evento.</li>
+                <li><strong>Nome</strong> (string): Filtra pelo nome do usuário.</li>
+                <li><strong>Documento</strong> (string): Filtra pelo número do documento.</li>
+                <li><strong>Placa</strong> (string): Filtra pela placa do veículo.</li>
+                <li><strong>Chassi</strong> (string): Filtra pelo número do chassi.</li>
+                <li><strong>Renavam</strong> (string): Filtra pelo número do Renavam.</li>
+                <li><strong>Inicio</strong> (DateTime): Data inicial da busca.</li>
+                <li><strong>Fim</strong> (DateTime): Data final da busca.</li>
+                <li><strong>Cep</strong> (string): Filtra pelo CEP.</li>
+                <li><strong>Logradouro</strong> (string): Filtra pelo logradouro.</li>
+                <li><strong>Bairro</strong> (string): Filtra pelo bairro.</li>
+                <li><strong>Cidade</strong> (string): Filtra pela cidade.</li>
+                <li><strong>Estado</strong> (string): Filtra pelo estado.</li>
+                <li><strong>Skip</strong> (int): Número de registros a serem ignorados.</li>
+                <li><strong>Take</strong> (int): Número máximo de registros a serem retornados.</li>
+            </ul>
+
+            <p class="text-gray-700 mt-2">
+                Os filtros <strong>skip</strong> e <strong>take</strong> são usados para paginação e devem ser
+                configurados corretamente para evitar erros.
+            </p>
+        </div>
+
+
+        <div class="mb-6 bg-red-100 p-4 rounded-lg border-l-4 border-red-500">
+            <h2 class="text-xl font-semibold text-red-700">Filtros Obrigatórios</h2>
+            <p class="text-gray-700 mt-2">
+                A consulta requer alguns filtros obrigatórios que devem ser passados corretamente para evitar erros
+                na requisição.
+            </p>
+            <ul class="list-disc pl-6 text-gray-700 mt-2">
+                <li><strong>skip</strong>: Deve ser menor do que o valor de <strong>take</strong>.</li>
+                <li><strong>take</strong>: Deve ser menor do que o valor de <strong>take</strong>.</li>
+                <li><strong>início</strong>: Campo obrigatório. Deve representar o início do intervalo de consulta e
+                    deve ser menor ou igual ao campo fim.</li>
+                <li><strong>fim</strong>: Campo obrigatório. Deve representar o fim do intervalo de consulta e deve ser
+                    maior ou igual ao campo início.</li>
+            </ul>
+            <p class="text-gray-700 mt-2">
+                Caso esses critérios não sejam atendidos, a API retornará um erro <strong>400 Bad Request</strong> com a
+                respectiva mensagem de validação.
+            </p>
+        </div>
+
+
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold">Exemplo de Requisição</h3>
+            <pre class="bg-gray-900 text-white p-4 rounded text-sm overflow-auto">
+curl --location 'http://localhost:3000/organizacoes/769fd020-09ae-4e7d-b4ad-fd1f63a5fcb7/eventos?skip=0&take=10&inicio=2025-02-01&fim=2025-03-01' \
+--header 'X-Tenant-ID: de87a4c4-6a00-4a38-9896-5b5b61a00d1c' \
+--header 'Authorization: teste'</pre>
+        </div>
+
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold">Exemplo de Resposta</h3>
+            <pre class="bg-gray-900 text-white p-4 rounded text-sm overflow-auto">
+            {
+    "itens": [
+        {
+            "dataDoEvento": "2025-02-28T13:09:00Z",
+            "dataDoStatus": "2025-02-28T13:09:51.457Z",
+            "idUsuario": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+            "nomeDoUsuario": "Gilberto Ferreira",
+            "identificador": "A202502S01I 22790540-CO",
+            "idProcesso": "5dd2b815-042e-4ca8-b8fd-0fe34db053c1",
+            "nomeDoProcesso": "Eventos",
+            "idEtapa": "658d8630-f539-4b2c-a2af-7c8ed6917cf2",
+            "nomeDaEtapa": "Abertura",
+            "tags": "OCP A202502S01I 22790540-CO 22790540 Gilberto de Oliveira Ferreira Associado Bruce Wayne Envolvido HLY1774 Crítico Colisão Gilberto gilberto1902",
+            "custo": 0,
+            "finalizado": false,
+            "arquivado": false,
+            "idOrganizacao": "769fd020-09ae-4e7d-b4ad-fd1f63a5fcb7",
+            "nomeDaOrganizacao": "OCP",
+            "possuiOutroEventoAbertoParaOVeiculo": false,
+            "dataLimiteSlaCritico": "2025-02-28T13:12:51.458Z",
+            "dataLimiteSlaNoPrazo": "2025-02-28T13:10:51.458Z",
+            "dataLimiteSlaAlerta": "2025-02-28T13:11:51.458Z",
+            "tipo": {
+                "nome": "Colisão",
+                "codigo": "C",
+                "padraoParaIntegracoes": true,
+                "tags": "Colisão,False,76fed550-f1bb-42db-8016-2310d882106b",
+                "campos": [
+                    {
+                        "nome": "Descreva o Evento",
+                        "tipo": "AreaDeTexto",
+                        "obrigatoria": true,
+                        "opcoes": [],
+                        "id": "610bc0aa-6554-4fa9-b8d6-3951ea05a836",
+                        "cadastro": "2025-02-28T13:07:55.024Z",
+                        "ativo": true,
+                        "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                        "tenantName": "Maess Systems"
+                    },
+                    {
+                        "nome": "Boletim de Ocorrência",
+                        "tipo": "Anexo",
+                        "obrigatoria": false,
+                        "opcoes": [],
+                        "id": "2a9bed83-b7d3-4c14-90bd-49a668eb30b3",
+                        "cadastro": "2025-02-28T13:07:55.024Z",
+                        "ativo": true,
+                        "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                        "tenantName": "Maess Systems"
+                    },
+                    {
+                        "nome": "CNH Condutor",
+                        "tipo": "Anexo",
+                        "obrigatoria": true,
+                        "opcoes": [],
+                        "id": "cdefd812-4528-466f-a6d3-a58a5e088bf7",
+                        "cadastro": "2025-02-28T13:07:55.024Z",
+                        "ativo": true,
+                        "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                        "tenantName": "Maess Systems"
+                    },
+                    {
+                        "nome": "CNH Terceiro",
+                        "tipo": "Anexo",
+                        "obrigatoria": false,
+                        "opcoes": [],
+                        "id": "daedfd1a-22aa-4d5a-acbb-4028ecff4af8",
+                        "cadastro": "2025-02-28T13:07:55.024Z",
+                        "ativo": true,
+                        "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                        "tenantName": "Maess Systems"
+                    },
+                    {
+                        "nome": "Data e Hora do Evento",
+                        "tipo": "DataEHora",
+                        "obrigatoria": true,
+                        "opcoes": [],
+                        "id": "1fd8d9c3-9ce4-4d11-9895-859a87865fa4",
+                        "cadastro": "2025-02-28T13:07:55.024Z",
+                        "ativo": true,
+                        "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                        "tenantName": "Maess Systems"
+                    }
+                ],
+                "id": "76fed550-f1bb-42db-8016-2310d882106b",
+                "cadastro": "2024-07-18T17:02:36.593Z",
+                "atualizacao": "2025-02-28T13:07:55.024Z",
+                "ativo": false,
+                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                "tenantName": "Maess Systems"
+            },
+            "status": {
+                "nome": "No prazo",
+                "cor": "#4CAF50",
+                "tempo": 1,
+                "ordem": 0,
+                "habilitado": true,
+                "tipoDeTempo": "Minutos",
+                "usaDiasUteis": true,
+                "id": "ba557c98-d4ae-458f-80d1-12f264628191",
+                "cadastro": "2025-02-18T15:06:01.374Z",
+                "atualizacao": "2025-02-28T13:07:55.022Z",
+                "ativo": true,
+                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                "tenantName": "Maess Systems"
+            },
+            "fase": {
+                "nome": "Documentação Pendente",
+                "id": "8e8b8bd2-3e7b-4160-9e50-21967c88d587",
+                "cadastro": "2024-11-07T12:27:17.939Z",
+                "atualizacao": "2025-02-28T13:07:55.023Z",
+                "ativo": true,
+                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                "tenantName": "Maess Systems"
+            },
+            "jornada": {
+                "processos": [
+                    {
+                        "id": "5dd2b815-042e-4ca8-b8fd-0fe34db053c1",
+                        "data": "2025-02-28T13:09:51.458Z",
+                        "etapas": [
+                            {
+                                "id": "658d8630-f539-4b2c-a2af-7c8ed6917cf2",
+                                "nomeDaEtapa": "Abertura",
+                                "inicio": "2025-02-28T13:09:51.458Z",
+                                "fim": "2025-02-28T13:12:19.16Z",
+                                "responsavel": {
+                                    "nome": "Gilberto",
+                                    "sobrenome": "Ferreira",
+                                    "login": "gilberto1902",
+                                    "email": "gilberto.pazelli@gmail.com",
+                                    "id": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "id": "05de101f-a39a-4bac-8e7d-eb019907a791",
+                        "data": "2025-02-28T13:12:19.16Z",
+                        "etapas": [
+                            {
+                                "id": "f551df58-8bd0-4764-89a3-5b4753525d2e",
+                                "nomeDaEtapa": "Abertura",
+                                "inicio": "2025-02-28T13:12:19.16Z",
+                                "fim": "2025-02-28T13:12:48.564Z",
+                                "responsavel": {
+                                    "nome": "Gilberto",
+                                    "sobrenome": "Ferreira",
+                                    "login": "gilberto1902",
+                                    "email": "gilberto.pazelli@gmail.com",
+                                    "id": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "id": "5dd2b815-042e-4ca8-b8fd-0fe34db053c1",
+                        "data": "2025-02-28T13:12:48.564Z",
+                        "etapas": [
+                            {
+                                "id": "658d8630-f539-4b2c-a2af-7c8ed6917cf2",
+                                "nomeDaEtapa": "Abertura",
+                                "inicio": "2025-02-28T13:12:48.564Z",
+                                "responsavel": {
+                                    "nome": "Gilberto",
+                                    "sobrenome": "Ferreira",
+                                    "login": "gilberto1902",
+                                    "email": "gilberto.pazelli@gmail.com",
+                                    "id": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "id": "b01b6bdf-459e-481e-9960-7e8316aea54d",
+                "cadastro": "2025-02-28T13:09:51.458Z",
+                "atualizacao": "2025-02-28T13:12:48.564Z",
+                "ativo": true,
+                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                "tenantName": "Maess Systems"
+            },
+            "responsavel": {
+                "nome": "Gilberto",
+                "sobrenome": "Ferreira",
+                "login": "gilberto1902",
+                "email": "gilberto.pazelli@gmail.com",
+                "id": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                "tenantName": "Maess Systems"
+            },
+            "envolvidos": [
+                {
+                    "tipo": "Associado",
+                    "idUsuarioCriador": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+                    "nome": "Gilberto de Oliveira Ferreira",
+                    "codigo": "22790540",
+                    "principal": false,
+                    "pessoaFisica": {
+                        "nome": "Gilberto de Oliveira Ferreira",
+                        "id": "8cfb046b-2bc1-48d6-b6ec-825b0b01d293",
+                        "cadastro": "2025-02-28T13:09:51.458Z",
+                        "ativo": true,
+                        "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                        "tenantName": "Maess Systems"
+                    },
+                    "contatos": [
+                        {
+                            "tipo": "Telefone",
+                            "valor": "21992394258",
+                            "nome": "Gilberto de Oliveira Ferreira",
+                            "id": "d0408f84-b408-4a76-a3c5-6babbb3e318c",
+                            "cadastro": "2025-02-28T13:09:51.457Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "tipo": "Email",
+                            "valor": "gilberto@maess.com.br",
+                            "nome": "Gilberto de Oliveira Ferreira",
+                            "id": "c29e33ef-1fcc-4e39-80cf-696223c88809",
+                            "cadastro": "2025-02-28T13:09:51.457Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        }
+                    ],
+                    "veiculos": [
+                        {
+                            "placa": "HLY1774",
+                            "idUsuarioCriador": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+                            "id": "4e94c293-c7af-45c0-9964-979b6ea9c15f",
+                            "cadastro": "2025-02-28T13:09:51.458Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        }
+                    ],
+                    "papeis": [
+                        "Associado",
+                        "Condutor",
+                        "Proprietario"
+                    ],
+                    "id": "6a55345f-5bfb-475e-aeb9-fd48012bc192",
+                    "cadastro": "2025-02-28T13:09:51.457Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "tipo": "Envolvido",
+                    "idUsuarioCriador": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+                    "nome": "Bruce Wayne",
+                    "principal": true,
+                    "pessoaFisica": {
+                        "nome": "Bruce Wayne",
+                        "id": "571f9c90-1644-4096-ade8-4839299ddadd",
+                        "cadastro": "2025-02-28T13:09:51.458Z",
+                        "atualizacao": "2025-02-28T13:17:03.684Z",
+                        "ativo": true,
+                        "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                        "tenantName": "Maess Systems"
+                    },
+                    "contatos": [
+                        {
+                            "tipo": "Telefone",
+                            "nome": "Bruce Wayne",
+                            "id": "7cb125d9-a02a-40a1-9b5f-47ed40b19919",
+                            "cadastro": "2025-02-28T13:17:03.684Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        }
+                    ],
+                    "papeis": [
+                        "Envolvido"
+                    ],
+                    "id": "dddbde3d-83b1-4461-8b71-3aa98b9d1337",
+                    "cadastro": "2025-02-28T13:09:51.458Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "veiculos": [
+                {
+                    "placa": "HLY1774",
+                    "idUsuarioCriador": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+                    "id": "4e94c293-c7af-45c0-9964-979b6ea9c15f",
+                    "cadastro": "2025-02-28T13:09:51.458Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "anotacoes": [],
+            "historico": [
+                {
+                    "texto": "Envolvido Bruce Wayne atualizado",
+                    "nomeDoUsuario": "Gilberto Ferreira",
+                    "idUsuario": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+                    "id": "6e91c518-2f9c-45a7-acfe-809290a656f0",
+                    "cadastro": "2025-02-28T13:17:03.684Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "texto": "Evento reaberto.",
+                    "nomeDoUsuario": "Gilberto Ferreira",
+                    "idUsuario": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+                    "id": "5b661e81-3644-4e27-a396-a74d00721737",
+                    "cadastro": "2025-02-28T13:14:53.237Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "texto": "Evento finalizado.",
+                    "nomeDoUsuario": "Gilberto Ferreira",
+                    "idUsuario": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+                    "id": "e6dbe851-a84a-4c88-9e94-5c08035aaa31",
+                    "cadastro": "2025-02-28T13:14:20.511Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "texto": "Processo alterado de Indenizações para Eventos",
+                    "nomeDoUsuario": "Gilberto Ferreira",
+                    "idUsuario": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+                    "id": "2b3df6b5-e08e-4601-a695-3f9e377ce695",
+                    "cadastro": "2025-02-28T13:12:48.564Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "texto": "Processo alterado de Eventos para Indenizações",
+                    "nomeDoUsuario": "Gilberto Ferreira",
+                    "idUsuario": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+                    "id": "c8da42c5-1656-47e6-a0a8-83f2ceeffdec",
+                    "cadastro": "2025-02-28T13:12:19.16Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "texto": "Evento criado.",
+                    "nomeDoUsuario": "Gilberto Ferreira",
+                    "idUsuario": "7ba206e6-1bbd-40c2-aed2-d2f348aab564",
+                    "id": "a82018ad-b01d-4727-8ab4-b3d8f21aaf20",
+                    "cadastro": "2025-02-28T13:09:51.457Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "processos": [
+                {
+                    "nome": "Eventos",
+                    "descricao": "",
+                    "etapas": [
+                        {
+                            "nome": "Abertura",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "tempo": 1,
+                                "ordem": 0,
+                                "habilitado": true,
+                                "tipoDeTempo": "Minutos",
+                                "usaDiasUteis": true,
+                                "id": "ba557c98-d4ae-458f-80d1-12f264628191",
+                                "cadastro": "2025-02-18T15:06:01.374Z",
+                                "atualizacao": "2025-02-28T13:07:55.022Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "tarefas": [
+                                {
+                                    "nome": "BO foi anexado?",
+                                    "obrigatoria": true,
+                                    "tipo": "VerdadeiroOuFalso",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "948c0799-ab7b-4361-9de0-0c9344f1f8af",
+                                    "cadastro": "2024-07-31T18:39:01.207Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                },
+                                {
+                                    "nome": "Quem realizou a abertura?",
+                                    "obrigatoria": false,
+                                    "tipo": "CaixaDeSelecao",
+                                    "opcoes": [
+                                        {
+                                            "nome": "Associado",
+                                            "id": "093bd9bd-6035-443e-af82-628c790613b9",
+                                            "cadastro": "2024-11-07T12:27:17.94Z",
+                                            "ativo": true,
+                                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                            "tenantName": "Maess Systems"
+                                        },
+                                        {
+                                            "nome": "Condudor",
+                                            "id": "28c36526-91c9-49d4-924c-ec3b6b0699ad",
+                                            "cadastro": "2024-11-07T12:27:17.94Z",
+                                            "ativo": true,
+                                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                            "tenantName": "Maess Systems"
+                                        },
+                                        {
+                                            "nome": "Representante Legal",
+                                            "id": "2b00b49d-9cc7-470f-acb7-15a1cbb08d1e",
+                                            "cadastro": "2024-11-07T12:27:17.94Z",
+                                            "ativo": true,
+                                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                            "tenantName": "Maess Systems"
+                                        }
+                                    ],
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "541e38e9-5321-4c5b-85e9-a1efd16de67e",
+                                    "cadastro": "2024-11-07T12:27:17.939Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                },
+                                {
+                                    "nome": "Teste",
+                                    "obrigatoria": true,
+                                    "tipo": "Dinheiro",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "a0cea796-c1a9-48a9-a73a-cac087ff1dca",
+                                    "cadastro": "2025-01-20T12:43:15.263Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                },
+                                {
+                                    "nome": "Descreva o Evento",
+                                    "obrigatoria": true,
+                                    "tipo": "AreaDeTexto",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "610bc0aa-6554-4fa9-b8d6-3951ea05a836",
+                                    "cadastro": "2025-02-28T13:09:51.456Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                },
+                                {
+                                    "nome": "Boletim de Ocorrência",
+                                    "obrigatoria": false,
+                                    "tipo": "Anexo",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "2a9bed83-b7d3-4c14-90bd-49a668eb30b3",
+                                    "cadastro": "2025-02-28T13:09:51.456Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                },
+                                {
+                                    "nome": "CNH Condutor",
+                                    "obrigatoria": true,
+                                    "tipo": "Anexo",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "cdefd812-4528-466f-a6d3-a58a5e088bf7",
+                                    "cadastro": "2025-02-28T13:09:51.456Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                },
+                                {
+                                    "nome": "CNH Terceiro",
+                                    "obrigatoria": false,
+                                    "tipo": "Anexo",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "daedfd1a-22aa-4d5a-acbb-4028ecff4af8",
+                                    "cadastro": "2025-02-28T13:09:51.456Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                },
+                                {
+                                    "nome": "Data e Hora do Evento",
+                                    "obrigatoria": true,
+                                    "tipo": "DataEHora",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "1fd8d9c3-9ce4-4d11-9895-859a87865fa4",
+                                    "cadastro": "2025-02-28T13:09:51.457Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            ],
+                            "id": "658d8630-f539-4b2c-a2af-7c8ed6917cf2",
+                            "cadastro": "2024-07-18T17:02:36.567Z",
+                            "atualizacao": "2025-02-28T13:07:55.022Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Análise",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "tempo": 2,
+                                "ordem": 0,
+                                "habilitado": true,
+                                "tipoDeTempo": "Minutos",
+                                "usaDiasUteis": true,
+                                "id": "baa74515-0ed1-433a-8d87-a0d5d1cdfa20",
+                                "cadastro": "2025-02-18T13:53:34.843Z",
+                                "atualizacao": "2025-02-28T13:07:55.023Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "tarefas": [
+                                {
+                                    "nome": "Gravação da Assist. 24 hrs",
+                                    "descricao": "Áudio",
+                                    "obrigatoria": true,
+                                    "tipo": "Anexo",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "08a56910-209b-4bad-8cff-17ee01f63d45",
+                                    "cadastro": "2024-08-02T16:41:54.292Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            ],
+                            "id": "201c5da8-c39d-410e-86f4-f9fa642b7f71",
+                            "cadastro": "2024-07-18T17:02:36.589Z",
+                            "atualizacao": "2025-02-28T13:07:55.023Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Jurídico",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "ordem": 0,
+                                "habilitado": false,
+                                "tipoDeTempo": "Minutos",
+                                "usaDiasUteis": false,
+                                "id": "2fd527a9-e4cf-453c-a304-04c0afe0fac7",
+                                "cadastro": "2025-02-18T18:02:37.456Z",
+                                "atualizacao": "2025-02-28T13:07:55.023Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "id": "25380a71-b5d2-4054-a5e9-f3af77d3f989",
+                            "cadastro": "2025-02-18T18:02:33.531Z",
+                            "atualizacao": "2025-02-28T13:07:55.023Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Oficina",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "ordem": 0,
+                                "habilitado": false,
+                                "tipoDeTempo": "Minutos",
+                                "usaDiasUteis": false,
+                                "id": "c97e0e73-049a-4a6b-a992-e2700d1d3651",
+                                "cadastro": "2024-11-28T20:15:46.396Z",
+                                "atualizacao": "2025-02-28T13:07:55.023Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "tarefas": [
+                                {
+                                    "nome": "Foto do painel do carro ligado",
+                                    "obrigatoria": true,
+                                    "tipo": "Anexo",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "139979b8-a93d-4b00-bfc5-640a16510fbe",
+                                    "cadastro": "2024-11-28T20:15:46.397Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            ],
+                            "id": "15ef6693-976a-49ca-be5f-f2b40fa29c0c",
+                            "cadastro": "2024-07-18T17:02:36.59Z",
+                            "atualizacao": "2025-02-28T13:07:55.023Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Cotação",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "tempo": 3,
+                                "ordem": 0,
+                                "habilitado": true,
+                                "tipoDeTempo": "Minutos",
+                                "usaDiasUteis": true,
+                                "id": "4333d8a5-f126-4f97-aa0e-0b38195039cd",
+                                "cadastro": "2024-08-02T16:46:25.84Z",
+                                "atualizacao": "2025-02-28T13:07:55.023Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "tarefas": [
+                                {
+                                    "nome": "Cotação Realizada?",
+                                    "descricao": "Sinalizar status",
+                                    "obrigatoria": false,
+                                    "tipo": "CaixaDeSelecao",
+                                    "opcoes": [
+                                        {
+                                            "nome": "Sim",
+                                            "id": "ba70d4f0-a0cd-4c77-8928-773fc284a44e",
+                                            "cadastro": "2024-08-02T16:46:25.841Z",
+                                            "ativo": true,
+                                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                            "tenantName": "Maess Systems"
+                                        },
+                                        {
+                                            "nome": "Não se aplica",
+                                            "id": "3015ebb8-2406-4d45-936d-702c2e6286ca",
+                                            "cadastro": "2024-08-02T16:46:25.841Z",
+                                            "ativo": true,
+                                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                            "tenantName": "Maess Systems"
+                                        }
+                                    ],
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "b9c524bc-3303-4737-b810-b7510c6555ff",
+                                    "cadastro": "2024-08-02T16:46:25.841Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            ],
+                            "id": "471e6637-8ef1-4705-8c24-48d4ca1c419f",
+                            "cadastro": "2024-07-18T17:02:36.589Z",
+                            "atualizacao": "2025-02-28T13:07:55.023Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Regulação",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "tempo": 1,
+                                "ordem": 0,
+                                "habilitado": true,
+                                "tipoDeTempo": "Minutos",
+                                "usaDiasUteis": true,
+                                "id": "24df14ea-fb37-4ebb-9d2b-5b8ea1f5e5d1",
+                                "cadastro": "2024-08-28T12:33:33.959Z",
+                                "atualizacao": "2025-02-28T13:07:55.024Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "tarefas": [
+                                {
+                                    "nome": "Valor Orçamento Inicial",
+                                    "descricao": "Informar o valor",
+                                    "obrigatoria": false,
+                                    "tipo": "Dinheiro",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "6b660ff8-97d8-44b9-9f26-ac7f6f6c18e2",
+                                    "cadastro": "2024-08-02T16:47:38.411Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                },
+                                {
+                                    "nome": "Data da cotação",
+                                    "obrigatoria": false,
+                                    "tipo": "DataEHora",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "9dab60db-f9ba-42a7-b34c-794f4ca7645b",
+                                    "cadastro": "2024-08-28T12:33:33.96Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                },
+                                {
+                                    "nome": "Negociação Oficina",
+                                    "obrigatoria": false,
+                                    "tipo": "VerdadeiroOuFalso",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "a59e41e6-77ec-4022-9b97-e6eefcc5e111",
+                                    "cadastro": "2024-08-28T12:33:33.96Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            ],
+                            "id": "7a10f381-6952-4bec-9e68-c276a20edd9b",
+                            "cadastro": "2024-07-18T17:02:36.59Z",
+                            "atualizacao": "2025-02-28T13:07:55.024Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Conclusão",
+                            "descricao": "",
+                            "id": "5affd3c1-c65a-4951-8fc0-6254911b238d",
+                            "cadastro": "2024-07-18T17:02:36.59Z",
+                            "atualizacao": "2025-02-28T13:07:55.024Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Pós Conclusão",
+                            "descricao": "",
+                            "id": "50459fa6-71c9-4d99-8010-af94db73ec4b",
+                            "cadastro": "2025-01-15T17:11:34.998Z",
+                            "atualizacao": "2025-02-28T13:07:55.024Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        }
+                    ],
+                    "id": "5dd2b815-042e-4ca8-b8fd-0fe34db053c1",
+                    "cadastro": "2024-07-18T17:02:36.566Z",
+                    "atualizacao": "2025-02-28T13:07:55.022Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Indenizações",
+                    "descricao": "",
+                    "etapas": [
+                        {
+                            "nome": "Abertura",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "tempo": 5760,
+                                "ordem": 0,
+                                "habilitado": true,
+                                "tipoDeTempo": "Dias",
+                                "usaDiasUteis": true,
+                                "id": "102fbcdc-8093-43cd-af63-a3b231d5fe9d",
+                                "cadastro": "2024-10-31T18:29:35.382Z",
+                                "atualizacao": "2024-12-18T17:52:00.647Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "tarefas": [
+                                {
+                                    "nome": "Boletim de ocorrência Anexado",
+                                    "obrigatoria": true,
+                                    "tipo": "VerdadeiroOuFalso",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "7894aa2f-307a-4b46-a818-44017ee433af",
+                                    "cadastro": "2024-10-31T18:29:35.384Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                },
+                                {
+                                    "nome": "Teste",
+                                    "obrigatoria": true,
+                                    "tipo": "CaixaDeSelecao",
+                                    "opcoes": [
+                                        {
+                                            "nome": "Um",
+                                            "id": "c5b463c5-370e-4ac2-9eca-5acc283af5f1",
+                                            "cadastro": "2024-10-31T18:29:35.384Z",
+                                            "ativo": true,
+                                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                            "tenantName": "Maess Systems"
+                                        },
+                                        {
+                                            "nome": "Dois",
+                                            "id": "dd3bac4b-ece6-4f4a-b4a5-3f34378527c4",
+                                            "cadastro": "2024-10-31T18:29:35.384Z",
+                                            "ativo": true,
+                                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                            "tenantName": "Maess Systems"
+                                        },
+                                        {
+                                            "nome": "Três",
+                                            "id": "4479df19-e7d5-472f-babf-a470d247c41d",
+                                            "cadastro": "2024-10-31T18:29:35.384Z",
+                                            "ativo": true,
+                                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                            "tenantName": "Maess Systems"
+                                        }
+                                    ],
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "2562c2e0-8f38-4e25-995b-eae0e8944547",
+                                    "cadastro": "2024-10-31T18:29:35.384Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            ],
+                            "id": "f551df58-8bd0-4764-89a3-5b4753525d2e",
+                            "cadastro": "2024-10-31T18:23:26.629Z",
+                            "atualizacao": "2024-12-18T17:52:00.647Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Análise",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "tempo": 1,
+                                "ordem": 0,
+                                "habilitado": true,
+                                "tipoDeTempo": "Minutos",
+                                "usaDiasUteis": true,
+                                "id": "eb3022b0-43a3-4458-97b4-f47a9d40f0c8",
+                                "cadastro": "2024-11-01T13:36:34.324Z",
+                                "atualizacao": "2024-12-18T17:52:00.647Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "tarefas": [
+                                {
+                                    "nome": "Tarefa de teste",
+                                    "obrigatoria": false,
+                                    "tipo": "VerdadeiroOuFalso",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "3b105170-6884-4efc-aa5d-6ec326233f4d",
+                                    "cadastro": "2024-11-01T13:36:34.333Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            ],
+                            "id": "b83e8a13-ccb9-4f61-b1c4-f3751c06642f",
+                            "cadastro": "2024-10-31T18:23:26.629Z",
+                            "atualizacao": "2024-12-18T17:52:00.647Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Proteção de Renda",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "tempo": 2880,
+                                "ordem": 0,
+                                "habilitado": true,
+                                "tipoDeTempo": "Dias",
+                                "usaDiasUteis": true,
+                                "id": "2eb24c23-e42f-44bd-9f34-ace07cf152ca",
+                                "cadastro": "2024-12-18T17:52:00.648Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "id": "ece7a2f8-d71d-4b05-89e6-c579df908a29",
+                            "cadastro": "2024-12-18T17:50:22.364Z",
+                            "atualizacao": "2024-12-18T17:52:00.647Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Pagamento",
+                            "descricao": "",
+                            "id": "3fcd8198-67cb-42d9-af3e-be807c93b426",
+                            "cadastro": "2024-10-31T18:23:55.741Z",
+                            "atualizacao": "2024-12-18T17:52:00.648Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Conclusão",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "tempo": 1,
+                                "ordem": 0,
+                                "habilitado": false,
+                                "tipoDeTempo": "Minutos",
+                                "usaDiasUteis": false,
+                                "id": "5790fefe-4b28-423e-b68b-63343d82638f",
+                                "cadastro": "2024-11-01T12:57:49.413Z",
+                                "atualizacao": "2024-12-18T17:52:00.648Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "id": "49e44d0d-7ceb-47a3-afb7-57b1b79e0991",
+                            "cadastro": "2024-10-31T18:23:26.629Z",
+                            "atualizacao": "2024-12-18T17:52:00.648Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        }
+                    ],
+                    "id": "05de101f-a39a-4bac-8e7d-eb019907a791",
+                    "cadastro": "2024-10-31T18:23:26.629Z",
+                    "atualizacao": "2025-02-19T13:59:58.545Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Eventos",
+                    "descricao": "",
+                    "etapas": [
+                        {
+                            "nome": "Abertura",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "tempo": 1,
+                                "ordem": 0,
+                                "habilitado": true,
+                                "tipoDeTempo": "Minutos",
+                                "usaDiasUteis": true,
+                                "id": "ba557c98-d4ae-458f-80d1-12f264628191",
+                                "cadastro": "2025-02-18T15:06:01.374Z",
+                                "atualizacao": "2025-02-28T13:07:55.022Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "tarefas": [
+                                {
+                                    "nome": "BO foi anexado?",
+                                    "obrigatoria": true,
+                                    "tipo": "VerdadeiroOuFalso",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "948c0799-ab7b-4361-9de0-0c9344f1f8af",
+                                    "cadastro": "2024-07-31T18:39:01.207Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                },
+                                {
+                                    "nome": "Quem realizou a abertura?",
+                                    "obrigatoria": false,
+                                    "tipo": "CaixaDeSelecao",
+                                    "opcoes": [
+                                        {
+                                            "nome": "Associado",
+                                            "id": "093bd9bd-6035-443e-af82-628c790613b9",
+                                            "cadastro": "2024-11-07T12:27:17.94Z",
+                                            "ativo": true,
+                                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                            "tenantName": "Maess Systems"
+                                        },
+                                        {
+                                            "nome": "Condudor",
+                                            "id": "28c36526-91c9-49d4-924c-ec3b6b0699ad",
+                                            "cadastro": "2024-11-07T12:27:17.94Z",
+                                            "ativo": true,
+                                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                            "tenantName": "Maess Systems"
+                                        },
+                                        {
+                                            "nome": "Representante Legal",
+                                            "id": "2b00b49d-9cc7-470f-acb7-15a1cbb08d1e",
+                                            "cadastro": "2024-11-07T12:27:17.94Z",
+                                            "ativo": true,
+                                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                            "tenantName": "Maess Systems"
+                                        }
+                                    ],
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "541e38e9-5321-4c5b-85e9-a1efd16de67e",
+                                    "cadastro": "2024-11-07T12:27:17.939Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                },
+                                {
+                                    "nome": "Teste",
+                                    "obrigatoria": true,
+                                    "tipo": "Dinheiro",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "a0cea796-c1a9-48a9-a73a-cac087ff1dca",
+                                    "cadastro": "2025-01-20T12:43:15.263Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            ],
+                            "id": "658d8630-f539-4b2c-a2af-7c8ed6917cf2",
+                            "cadastro": "2024-07-18T17:02:36.567Z",
+                            "atualizacao": "2025-02-28T13:07:55.022Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Análise",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "tempo": 2,
+                                "ordem": 0,
+                                "habilitado": true,
+                                "tipoDeTempo": "Minutos",
+                                "usaDiasUteis": true,
+                                "id": "baa74515-0ed1-433a-8d87-a0d5d1cdfa20",
+                                "cadastro": "2025-02-18T13:53:34.843Z",
+                                "atualizacao": "2025-02-28T13:07:55.023Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "tarefas": [
+                                {
+                                    "nome": "Gravação da Assist. 24 hrs",
+                                    "descricao": "Áudio",
+                                    "obrigatoria": true,
+                                    "tipo": "Anexo",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "08a56910-209b-4bad-8cff-17ee01f63d45",
+                                    "cadastro": "2024-08-02T16:41:54.292Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            ],
+                            "id": "201c5da8-c39d-410e-86f4-f9fa642b7f71",
+                            "cadastro": "2024-07-18T17:02:36.589Z",
+                            "atualizacao": "2025-02-28T13:07:55.023Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Jurídico",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "ordem": 0,
+                                "habilitado": false,
+                                "tipoDeTempo": "Minutos",
+                                "usaDiasUteis": false,
+                                "id": "2fd527a9-e4cf-453c-a304-04c0afe0fac7",
+                                "cadastro": "2025-02-18T18:02:37.456Z",
+                                "atualizacao": "2025-02-28T13:07:55.023Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "id": "25380a71-b5d2-4054-a5e9-f3af77d3f989",
+                            "cadastro": "2025-02-18T18:02:33.531Z",
+                            "atualizacao": "2025-02-28T13:07:55.023Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Oficina",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "ordem": 0,
+                                "habilitado": false,
+                                "tipoDeTempo": "Minutos",
+                                "usaDiasUteis": false,
+                                "id": "c97e0e73-049a-4a6b-a992-e2700d1d3651",
+                                "cadastro": "2024-11-28T20:15:46.396Z",
+                                "atualizacao": "2025-02-28T13:07:55.023Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "tarefas": [
+                                {
+                                    "nome": "Foto do painel do carro ligado",
+                                    "obrigatoria": true,
+                                    "tipo": "Anexo",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "139979b8-a93d-4b00-bfc5-640a16510fbe",
+                                    "cadastro": "2024-11-28T20:15:46.397Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            ],
+                            "id": "15ef6693-976a-49ca-be5f-f2b40fa29c0c",
+                            "cadastro": "2024-07-18T17:02:36.59Z",
+                            "atualizacao": "2025-02-28T13:07:55.023Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Cotação",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "tempo": 3,
+                                "ordem": 0,
+                                "habilitado": true,
+                                "tipoDeTempo": "Minutos",
+                                "usaDiasUteis": true,
+                                "id": "4333d8a5-f126-4f97-aa0e-0b38195039cd",
+                                "cadastro": "2024-08-02T16:46:25.84Z",
+                                "atualizacao": "2025-02-28T13:07:55.023Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "tarefas": [
+                                {
+                                    "nome": "Cotação Realizada?",
+                                    "descricao": "Sinalizar status",
+                                    "obrigatoria": false,
+                                    "tipo": "CaixaDeSelecao",
+                                    "opcoes": [
+                                        {
+                                            "nome": "Sim",
+                                            "id": "ba70d4f0-a0cd-4c77-8928-773fc284a44e",
+                                            "cadastro": "2024-08-02T16:46:25.841Z",
+                                            "ativo": true,
+                                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                            "tenantName": "Maess Systems"
+                                        },
+                                        {
+                                            "nome": "Não se aplica",
+                                            "id": "3015ebb8-2406-4d45-936d-702c2e6286ca",
+                                            "cadastro": "2024-08-02T16:46:25.841Z",
+                                            "ativo": true,
+                                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                            "tenantName": "Maess Systems"
+                                        }
+                                    ],
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "b9c524bc-3303-4737-b810-b7510c6555ff",
+                                    "cadastro": "2024-08-02T16:46:25.841Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            ],
+                            "id": "471e6637-8ef1-4705-8c24-48d4ca1c419f",
+                            "cadastro": "2024-07-18T17:02:36.589Z",
+                            "atualizacao": "2025-02-28T13:07:55.023Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Regulação",
+                            "descricao": "",
+                            "status": {
+                                "nome": "No prazo",
+                                "cor": "#4CAF50",
+                                "tempo": 1,
+                                "ordem": 0,
+                                "habilitado": true,
+                                "tipoDeTempo": "Minutos",
+                                "usaDiasUteis": true,
+                                "id": "24df14ea-fb37-4ebb-9d2b-5b8ea1f5e5d1",
+                                "cadastro": "2024-08-28T12:33:33.959Z",
+                                "atualizacao": "2025-02-28T13:07:55.024Z",
+                                "ativo": true,
+                                "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                "tenantName": "Maess Systems"
+                            },
+                            "tarefas": [
+                                {
+                                    "nome": "Valor Orçamento Inicial",
+                                    "descricao": "Informar o valor",
+                                    "obrigatoria": false,
+                                    "tipo": "Dinheiro",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "6b660ff8-97d8-44b9-9f26-ac7f6f6c18e2",
+                                    "cadastro": "2024-08-02T16:47:38.411Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                },
+                                {
+                                    "nome": "Data da cotação",
+                                    "obrigatoria": false,
+                                    "tipo": "DataEHora",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "9dab60db-f9ba-42a7-b34c-794f4ca7645b",
+                                    "cadastro": "2024-08-28T12:33:33.96Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                },
+                                {
+                                    "nome": "Negociação Oficina",
+                                    "obrigatoria": false,
+                                    "tipo": "VerdadeiroOuFalso",
+                                    "respondida": false,
+                                    "atrasada": false,
+                                    "id": "a59e41e6-77ec-4022-9b97-e6eefcc5e111",
+                                    "cadastro": "2024-08-28T12:33:33.96Z",
+                                    "ativo": true,
+                                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                                    "tenantName": "Maess Systems"
+                                }
+                            ],
+                            "id": "7a10f381-6952-4bec-9e68-c276a20edd9b",
+                            "cadastro": "2024-07-18T17:02:36.59Z",
+                            "atualizacao": "2025-02-28T13:07:55.024Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Conclusão",
+                            "descricao": "",
+                            "id": "5affd3c1-c65a-4951-8fc0-6254911b238d",
+                            "cadastro": "2024-07-18T17:02:36.59Z",
+                            "atualizacao": "2025-02-28T13:07:55.024Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        },
+                        {
+                            "nome": "Pós Conclusão",
+                            "descricao": "",
+                            "id": "50459fa6-71c9-4d99-8010-af94db73ec4b",
+                            "cadastro": "2025-01-15T17:11:34.998Z",
+                            "atualizacao": "2025-02-28T13:07:55.024Z",
+                            "ativo": true,
+                            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                            "tenantName": "Maess Systems"
+                        }
+                    ],
+                    "id": "5dd2b815-042e-4ca8-b8fd-0fe34db053c1",
+                    "cadastro": "2024-07-18T17:02:36.566Z",
+                    "atualizacao": "2025-02-28T13:07:55.022Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "anexos": [],
+            "cotacoes": [],
+            "linksDeCotacao": [],
+            "orcamentos": [],
+            "diretorios": [
+                {
+                    "nome": "Fotos Andamento do Reparo",
+                    "arquivos": [],
+                    "id": "97b72f51-7d05-4329-8461-83e877679417",
+                    "cadastro": "2025-02-28T13:09:51.457Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Termo de Quitação",
+                    "arquivos": [],
+                    "id": "c18e7b41-9bbc-4ad6-be1f-1a2409bb9261",
+                    "cadastro": "2025-02-28T13:09:51.457Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Vistoria de Qualidade",
+                    "arquivos": [],
+                    "id": "810ac057-91ce-4c42-aaf9-27d86d0313c0",
+                    "cadastro": "2025-02-28T13:09:51.457Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Feedback",
+                    "arquivos": [],
+                    "id": "e862dbf7-fd39-48bc-9cfc-224c6d095b7a",
+                    "cadastro": "2025-02-28T13:09:51.457Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                },
+                {
+                    "nome": "Teste",
+                    "arquivos": [],
+                    "id": "74e9d151-e881-4617-b730-36ca83b13ffd",
+                    "cadastro": "2025-02-28T13:09:51.457Z",
+                    "ativo": true,
+                    "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+                    "tenantName": "Maess Systems"
+                }
+            ],
+            "oficinas": [],
+            "notificacoes": [],
+            "outrasDespesas": [],
+            "ordensDeCompra": [],
+            "ordensDeDevolucao": [],
+            "id": "568c6264-b756-4f6e-a2fd-983d74048488",
+            "cadastro": "2025-02-28T13:09:51.457Z",
+            "atualizacao": "2025-02-28T13:14:53.237Z",
+            "ativo": true,
+            "tenant": "de87a4c4-6a00-4a38-9896-5b5b61a00d1c",
+            "tenantName": "Maess Systems"
+        }
+    ],
+    "quantidade": 1
+}
+</pre>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-semibold">Códigos de Status</h3>
+            <ul class="list-disc pl-6 text-gray-700">
+                <li><strong>200</strong> - Sucesso</li>
+                <li><strong>400</strong> - Requisição inválida</li>
+                <li><strong>401</strong> - Não autorizado</li>
+                <li><strong>404</strong> - Organização não encontrada</li>
+                <li><strong>429</strong> - Limite de requisições por segundo violado</li>
+                <li><strong>500</strong> - Erro interno do servidor</li>
+            </ul>
+        </div>
+        <!-- Consulta de Eventos -->
+
+
+    </div>
+</body>
+
+</html>
