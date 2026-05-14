@@ -4,15 +4,526 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentação da API</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Documentação da API | Gestão Segura</title>
+    <link rel="icon" href="apresentacoes/formularios/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gs-bg: #1A1A1A;
+            --gs-card: #212121;
+            --gs-card-soft: #262626;
+            --gs-border: #343434;
+            --gs-text: #D7D7C8;
+            --gs-muted: rgba(215, 215, 200, 0.72);
+            --gs-primary: #3A41A8;
+            --gs-secondary: #FA5F46;
+            --gs-secondary-hover: #D94A33;
+            --gs-gradient: linear-gradient(135deg, #2D3278 0%, #3A41A8 100%);
+            --gs-secondary-gradient: linear-gradient(135deg, #FA5F46 0%, #FF7A64 100%);
+            --gs-code: #101010;
+        }
+
+        * { box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background:
+                radial-gradient(circle at 12% 4%, rgba(250, 95, 70, 0.14), transparent 25rem),
+                radial-gradient(circle at 86% 0%, rgba(58, 65, 168, 0.26), transparent 28rem),
+                linear-gradient(135deg, #111 0%, var(--gs-bg) 52%, #242424 100%);
+            color: var(--gs-text);
+            font-family: 'Inter', Arial, sans-serif;
+            line-height: 1.58;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px);
+            background-size: 48px 48px;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 82%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 82%, transparent 100%);
+            opacity: 0.45;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        strong {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .doc-shell {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 288px minmax(0, 1fr);
+            gap: 30px;
+            width: min(1480px, 100%);
+            margin: 0 auto;
+            padding: 28px;
+        }
+
+        .doc-sidebar {
+            position: sticky;
+            top: 28px;
+            height: calc(100vh - 56px);
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            padding: 26px;
+            overflow: auto;
+            background: rgba(33, 33, 33, 0.84);
+            border: 1px solid rgba(215, 215, 200, 0.12);
+            border-radius: 18px;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+            backdrop-filter: blur(14px);
+        }
+
+        .doc-brand img {
+            width: 174px;
+            height: auto;
+            display: block;
+        }
+
+        .doc-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 22px;
+            color: var(--gs-muted);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .doc-eyebrow::before {
+            content: '';
+            width: 28px;
+            height: 2px;
+            background: var(--gs-secondary);
+        }
+
+        .doc-nav {
+            display: grid;
+            gap: 8px;
+        }
+
+        .doc-nav-title {
+            margin: 0 0 8px;
+            color: rgba(215, 215, 200, 0.58);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .doc-nav a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            min-height: 42px;
+            padding: 10px 12px;
+            color: var(--gs-text);
+            border: 1px solid transparent;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 160ms ease;
+        }
+
+        .doc-nav a:hover {
+            background: rgba(255, 255, 255, 0.055);
+            border-color: rgba(215, 215, 200, 0.12);
+            color: #fff;
+        }
+
+        .doc-nav span {
+            color: var(--gs-secondary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+        }
+
+        .doc-meta {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(215, 215, 200, 0.12);
+            color: rgba(215, 215, 200, 0.62);
+            font-size: 13px;
+        }
+
+        .api-doc-main {
+            min-width: 0;
+        }
+
+        .max-w-4xl {
+            width: 100%;
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .api-hero {
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 290px;
+            gap: 28px;
+            align-items: end;
+            min-height: 330px;
+            margin-bottom: 24px;
+            padding: 44px;
+            background:
+                radial-gradient(circle at 88% 20%, rgba(250, 95, 70, 0.16), transparent 18rem),
+                radial-gradient(circle at 72% 96%, rgba(58, 65, 168, 0.4), transparent 22rem),
+                rgba(33, 33, 33, 0.86);
+            border: 1px solid rgba(215, 215, 200, 0.13);
+            border-radius: 20px;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.28);
+        }
+
+        .api-hero::after {
+            content: '';
+            position: absolute;
+            right: -150px;
+            top: -170px;
+            width: 420px;
+            height: 420px;
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            border-radius: 50%;
+        }
+
+        .api-hero > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .api-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+            color: rgba(215, 215, 200, 0.82);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .api-kicker::before {
+            content: '';
+            width: 42px;
+            height: 2px;
+            background: var(--gs-secondary);
+        }
+
+        .api-hero h1,
+        h1, h2, h3 {
+            margin: 0;
+            color: #fff;
+            font-family: 'Poppins', 'Inter', sans-serif;
+            letter-spacing: 0;
+        }
+
+        .api-hero h1 {
+            max-width: 760px;
+            font-size: clamp(42px, 6vw, 74px);
+            line-height: 1.02;
+            text-wrap: balance;
+        }
+
+        .api-hero p {
+            max-width: 720px;
+            margin: 22px 0 0;
+            color: rgba(215, 215, 200, 0.88);
+            font-size: 19px;
+        }
+
+        .api-summary {
+            display: grid;
+            gap: 12px;
+        }
+
+        .summary-item {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(215, 215, 200, 0.12);
+            border-radius: 12px;
+        }
+
+        .summary-item span {
+            display: block;
+            color: var(--gs-muted);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .summary-item strong {
+            display: block;
+            margin-top: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+        }
+
+        .notice-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .notice-grid > div,
+        .endpoint-section,
+        .mb-6:not(.endpoint-section) {
+            background: rgba(33, 33, 33, 0.88);
+            border: 1px solid rgba(215, 215, 200, 0.12);
+            border-radius: 16px;
+            box-shadow: 0 18px 54px rgba(0, 0, 0, 0.18);
+        }
+
+        .notice-grid > div {
+            min-height: 100%;
+            padding: 24px;
+            border-left: 4px solid var(--gs-secondary);
+        }
+
+        .notice-grid > div:nth-child(2) {
+            border-left-color: var(--gs-primary);
+        }
+
+        .endpoint-section {
+            overflow: hidden;
+            margin: 0 0 24px;
+        }
+
+        .endpoint-section > .mb-6:first-child {
+            margin: 0;
+            padding: 28px 30px 24px;
+            background: linear-gradient(135deg, rgba(58, 65, 168, 0.72), rgba(33, 33, 33, 0.92));
+            border: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .endpoint-section > div:not(:first-child) {
+            margin: 0;
+            padding: 24px 30px 28px;
+            background: transparent;
+            border: 0;
+            border-top: 1px solid rgba(215, 215, 200, 0.11);
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .mb-6:not(.endpoint-section) {
+            margin: 0 0 18px;
+            padding: 24px;
+        }
+
+        h2 {
+            font-size: clamp(24px, 3vw, 34px);
+            line-height: 1.12;
+        }
+
+        h3 {
+            margin-bottom: 14px;
+            color: var(--gs-secondary);
+            font-size: 18px;
+        }
+
+        p {
+            margin: 10px 0 0;
+            color: var(--gs-text);
+        }
+
+        ul {
+            margin: 14px 0 0;
+            padding-left: 20px;
+            color: var(--gs-text);
+        }
+
+        li + li {
+            margin-top: 8px;
+        }
+
+        .bg-gray-200,
+        .endpoint-line {
+            display: inline-flex;
+            width: 100%;
+            margin-top: 18px;
+            padding: 14px 16px;
+            background: rgba(16, 16, 16, 0.78);
+            border: 1px solid rgba(250, 95, 70, 0.22);
+            border-radius: 12px;
+        }
+
+        .bg-gray-200 p,
+        .font-mono {
+            margin: 0;
+            color: #fff;
+            font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        pre {
+            position: relative;
+            max-height: 560px;
+            margin: 0;
+            padding: 22px;
+            overflow: auto;
+            color: #F4F4ED;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
+                var(--gs-code);
+            border: 1px solid rgba(215, 215, 200, 0.12);
+            border-radius: 14px;
+            font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+            font-size: 13px;
+            line-height: 1.58;
+            tab-size: 4;
+            white-space: pre;
+        }
+
+        .code-wrap {
+            position: relative;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 2;
+            min-width: 76px;
+            min-height: 34px;
+            padding: 8px 12px;
+            color: #fff;
+            background: rgba(58, 65, 168, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 9px;
+            font: 700 12px/1 'Inter', sans-serif;
+            cursor: pointer;
+        }
+
+        .copy-button:hover {
+            background: var(--gs-secondary);
+        }
+
+        @media (max-width: 1120px) {
+            .doc-shell {
+                grid-template-columns: 1fr;
+                padding: 18px;
+            }
+
+            .doc-sidebar {
+                position: relative;
+                top: auto;
+                height: auto;
+            }
+
+            .doc-nav {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 760px) {
+            .doc-shell {
+                padding: 12px;
+            }
+
+            .api-hero,
+            .notice-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .api-hero {
+                min-height: auto;
+                padding: 28px;
+            }
+
+            .doc-nav {
+                grid-template-columns: 1fr;
+            }
+
+            .endpoint-section > .mb-6:first-child,
+            .endpoint-section > div:not(:first-child) {
+                padding: 22px;
+            }
+
+            pre {
+                max-height: 460px;
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100 p-6">
-    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h1 class="text-2xl font-bold mb-4">Documentação da API</h1>
+<body>
+    <div class="doc-shell">
+        <aside class="doc-sidebar" aria-label="Navegação da documentação">
+            <div class="doc-brand">
+                <img src="apresentacoes/formularios/logo-branco.png" alt="Gestão Segura">
+                <div class="doc-eyebrow">API pública</div>
+            </div>
 
-        <div class="mb-6 bg-blue-100 p-4 rounded-lg border-l-4 border-blue-500">
+            <nav class="doc-nav">
+                <p class="doc-nav-title">Nesta página</p>
+                <a href="#autenticacao">Autenticação <span>Base</span></a>
+                <a href="#limites">Limites de uso <span>429</span></a>
+                <a href="#obter-organizacao">Obter Organização <span>GET</span></a>
+                <a href="#obter-esteiras">Obter Esteiras <span>GET</span></a>
+                <a href="#obter-eventos">Obter Eventos <span>GET</span></a>
+            </nav>
+
+            <div class="doc-meta">
+                <strong>Base URL</strong><br>
+                https://api.gestaosegura.app/bi
+            </div>
+        </aside>
+
+        <main class="api-doc-main">
+            <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md" id="api-content">
+                <header class="api-hero">
+                    <div>
+                        <div class="api-kicker">Gestão Segura</div>
+                        <h1>Documentação da API</h1>
+                        <p>
+                            Referência para consumo dos endpoints de BI, com autenticação por tenant,
+                            limites de uso, exemplos de requisição e respostas completas.
+                        </p>
+                    </div>
+                    <div class="api-summary" aria-label="Resumo da API">
+                        <div class="summary-item">
+                            <span>Autenticação</span>
+                            <strong>X-Tenant-ID + Authorization</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Formato</span>
+                            <strong>JSON via HTTPS</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Rate limit</span>
+                            <strong>1 requisição/segundo</strong>
+                        </div>
+                    </div>
+                </header>
+
+        <div class="mb-6 bg-blue-100 p-4 rounded-lg border-l-4 border-blue-500" id="autenticacao">
             <h2 class="text-xl font-semibold text-blue-700">Autenticação e Identificação do Tenant</h2>
             <p class="text-gray-700 mt-2">
                 Para consumir esta API, é necessário obter uma <strong>apiKey</strong> e um <strong>tenant</strong>, que
@@ -25,7 +536,7 @@
             </ul>
         </div>
 
-        <div class="mb-6 bg-yellow-100 p-4 rounded-lg border-l-4 border-yellow-500">
+        <div class="mb-6 bg-yellow-100 p-4 rounded-lg border-l-4 border-yellow-500" id="limites">
             <h2 class="text-xl font-semibold text-yellow-700">Limites de Uso da API</h2>
             <p class="text-gray-700 mt-2">
                 Para garantir a estabilidade e o desempenho da API, aplicamos limites de requisição. Atualmente, o
@@ -2668,8 +3179,100 @@ curl --location 'https://api.gestaosegura.app/bi/organizacoes/769fd020-09ae-4e7d
         </div>
         <!-- Consulta de Eventos -->
 
-
+            </div>
+        </main>
     </div>
+    <script>
+        (() => {
+            const content = document.querySelector('#api-content');
+            if (!content) return;
+
+            const slugMap = {
+                '1. Obter Organização': 'obter-organizacao',
+                '2. Obter Esteiras': 'obter-esteiras',
+                '3. Obter Eventos': 'obter-eventos'
+            };
+
+            const notices = Array.from(content.children).filter((child) => {
+                const title = child.querySelector && child.querySelector('h2');
+                return title && /Autenticação|Limites/.test(title.textContent);
+            });
+
+            if (notices.length) {
+                const grid = document.createElement('section');
+                grid.className = 'notice-grid';
+                grid.setAttribute('aria-label', 'Informações gerais da API');
+                notices[0].before(grid);
+                notices.forEach((notice) => grid.appendChild(notice));
+            }
+
+            const children = Array.from(content.children);
+            let currentSection = null;
+
+            children.forEach((child) => {
+                if (child.classList && child.classList.contains('notice-grid')) {
+                    currentSection = null;
+                    return;
+                }
+
+                const title = child.querySelector && child.querySelector('h2');
+                const titleText = title ? title.textContent.trim() : '';
+
+                if (/^\d+\.\s/.test(titleText)) {
+                    currentSection = document.createElement('section');
+                    currentSection.className = 'endpoint-section';
+                    currentSection.id = slugMap[titleText] || titleText.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                    child.before(currentSection);
+                    currentSection.appendChild(child);
+                    return;
+                }
+
+                if (currentSection && child.tagName !== 'HEADER') {
+                    currentSection.appendChild(child);
+                }
+            });
+
+            document.querySelectorAll('.endpoint-section .bg-gray-200').forEach((endpoint) => {
+                endpoint.classList.add('endpoint-line');
+            });
+
+            document.querySelectorAll('pre').forEach((pre) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'code-wrap';
+                pre.before(wrapper);
+                wrapper.appendChild(pre);
+
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.type = 'button';
+                button.textContent = 'Copiar';
+                button.addEventListener('click', async () => {
+                    try {
+                        const code = pre.textContent.trim();
+                        if (navigator.clipboard && window.isSecureContext) {
+                            await navigator.clipboard.writeText(code);
+                        } else {
+                            const textarea = document.createElement('textarea');
+                            textarea.value = code;
+                            textarea.setAttribute('readonly', '');
+                            textarea.style.position = 'fixed';
+                            textarea.style.opacity = '0';
+                            document.body.appendChild(textarea);
+                            textarea.select();
+                            document.execCommand('copy');
+                            textarea.remove();
+                        }
+                        button.textContent = 'Copiado';
+                        setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+                    } catch {
+                        button.textContent = 'Indisponível';
+                        setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+                    }
+                });
+                wrapper.appendChild(button);
+            });
+        })();
+    </script>
 </body>
 
 </html>
