@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação Gestão Segura - Esteiras e Fluxo Comercial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --gs-bg: #1A1A1A;
+            --gs-card: #212121;
+            --gs-border: #2C2C2C;
+            --gs-text: #D7D7C8;
+            --gs-primary: #3A41A8;
+            --gs-secondary: #FA5F46;
+            --gs-hover: #D94A33;
+            --gs-gradient: linear-gradient(135deg, #2D3278 0%, #3A41A8 100%);
+            --gs-secondary-gradient: linear-gradient(135deg, #FA5F46 0%, #FF7A64 100%);
+        }
+
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 20px 0; background-color: #000; display: grid; gap: 40px; place-items: center; }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: var(--gs-bg);
+            color: var(--gs-text);
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 60px;
+        }
+
+        .gs-header {
+            position: absolute;
+            top: 40px;
+            right: 60px;
+            height: 40px;
+            z-index: 10;
+        }
+        .gs-header img { height: 100%; object-fit: contain; }
+
+        h1, h2, h3 { font-family: 'Poppins', sans-serif; color: #FFFFFF; margin: 0; }
+        
+        .slide-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            letter-spacing: 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .slide-title::before {
+            content: '';
+            width: 8px;
+            height: 48px;
+            background: var(--gs-secondary-gradient);
+            border-radius: 4px;
+        }
+
+        p, li { font-size: 20px; line-height: 1.5; color: var(--gs-text); }
+        strong { color: #FFF; font-weight: 600; }
+
+        .content-area { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+
+        .cover-slide {
+            padding: 0;
+            background:
+                radial-gradient(circle at 82% 24%, rgba(250, 95, 70, 0.18), transparent 28%),
+                radial-gradient(circle at 72% 72%, rgba(58, 65, 168, 0.34), transparent 34%),
+                linear-gradient(135deg, #111111 0%, #191919 50%, #242424 100%);
+        }
+        .cover-slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 48px 48px;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 76%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 76%, transparent 100%);
+            opacity: 0.42;
+        }
+        .cover-slide::after {
+            content: '';
+            position: absolute;
+            right: -120px;
+            top: -160px;
+            width: 560px;
+            height: 560px;
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            border-radius: 50%;
+        }
+        .cover-frame {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1.08fr 0.92fr;
+            gap: 56px;
+            padding: 58px 72px 52px;
+        }
+        .cover-copy {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-width: 0;
+        }
+        .cover-brand {
+            width: 210px;
+            height: auto;
+            object-fit: contain;
+        }
+        .cover-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(215, 215, 200, 0.86);
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .cover-kicker::before {
+            content: '';
+            width: 42px;
+            height: 2px;
+            background: var(--gs-secondary);
+        }
+        .title-layout h1 {
+            max-width: 690px;
+            font-size: 64px;
+            line-height: 1.02;
+            margin-bottom: 26px;
+            text-wrap: balance;
+        }
+        .title-layout .subtitle {
+            max-width: 650px;
+            font-size: 24px;
+            color: rgba(215, 215, 200, 0.92);
+            margin: 0;
+        }
+        .title-layout .subtitle strong {
+            color: var(--gs-secondary);
+        }
+        .cover-footer {
+            display: grid;
+            grid-template-columns: repeat(3, max-content);
+            gap: 30px;
+            align-items: center;
+            color: rgba(215, 215, 200, 0.66);
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .cover-footer span {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+        .cover-footer i {
+            color: var(--gs-secondary);
+            font-size: 13px;
+        }
+        .cover-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 0;
+        }
+        .process-map {
+            position: relative;
+            width: 460px;
+            height: 460px;
+        }
+        .process-line {
+            position: absolute;
+            left: 74px;
+            right: 74px;
+            top: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(215, 215, 200, 0.34), transparent);
+        }
+        .process-line.diagonal-a {
+            transform: rotate(45deg);
+        }
+        .process-line.diagonal-b {
+            transform: rotate(-45deg);
+        }
+        .process-line.vertical {
+            transform: rotate(90deg);
+        }
+        .process-node {
+            position: absolute;
+            width: 116px;
+            height: 116px;
+            border: 1px solid rgba(215, 215, 200, 0.16);
+            border-radius: 18px;
+            background: rgba(26, 26, 26, 0.78);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+            display: grid;
+            place-items: center;
+        }
+        .process-node i {
+            font-size: 36px;
+            color: #FFFFFF;
+        }
+        .process-node.primary {
+            inset: 50% auto auto 50%;
+            width: 156px;
+            height: 156px;
+            transform: translate(-50%, -50%);
+            border-color: rgba(250, 95, 70, 0.62);
+            background: linear-gradient(135deg, rgba(58, 65, 168, 0.86), rgba(250, 95, 70, 0.82));
+        }
+        .process-node.primary i {
+            font-size: 48px;
+        }
+        .process-node.top {
+            top: 18px;
+            left: 172px;
+        }
+        .process-node.right {
+            top: 172px;
+            right: 18px;
+        }
+        .process-node.bottom {
+            bottom: 18px;
+            left: 172px;
+        }
+        .process-node.left {
+            top: 172px;
+            left: 18px;
+        }
+        .process-label {
+            position: absolute;
+            right: 26px;
+            bottom: 32px;
+            padding: 12px 16px;
+            border-left: 3px solid var(--gs-secondary);
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(215, 215, 200, 0.86);
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .closing-slide {
+            padding: 0;
+            align-items: stretch;
+            justify-content: stretch;
+            text-align: left;
+            background:
+                radial-gradient(circle at 18% 18%, rgba(250, 95, 70, 0.16), transparent 26%),
+                radial-gradient(circle at 88% 72%, rgba(58, 65, 168, 0.32), transparent 34%),
+                linear-gradient(135deg, #111111 0%, #191919 52%, #242424 100%);
+        }
+        .closing-slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 52px 52px;
+            -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+            mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+            opacity: 0.46;
+        }
+        .closing-frame {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 0.92fr 1.08fr;
+            gap: 62px;
+            padding: 52px 74px 44px;
+        }
+        .closing-mark {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-width: 0;
+        }
+        .closing-brand {
+            width: 220px;
+            height: auto;
+            object-fit: contain;
+        }
+        .closing-seal {
+            width: 260px;
+            height: 260px;
+            border: 1px solid rgba(215, 215, 200, 0.14);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: rgba(255, 255, 255, 0.035);
+            box-shadow: inset 0 0 80px rgba(58, 65, 168, 0.18);
+        }
+        .closing-seal i {
+            font-size: 78px;
+            color: var(--gs-secondary);
+        }
+        .closing-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 0;
+        }
+        .closing-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(215, 215, 200, 0.82);
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .closing-kicker::before {
+            content: '';
+            width: 42px;
+            height: 2px;
+            background: var(--gs-secondary);
+        }
+        .closing-content h2 {
+            font-size: 56px;
+            line-height: 1.01;
+            margin-bottom: 18px;
+            max-width: 640px;
+        }
+        .closing-message {
+            max-width: 620px;
+            margin: 0 0 34px;
+            color: rgba(215, 215, 200, 0.9);
+            font-size: 21px;
+        }
+        .signature-block {
+            border-left: 4px solid var(--gs-secondary);
+            padding-left: 22px;
+        }
+        .signature-name {
+            margin: 0 0 4px;
+            color: #FFFFFF;
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        .signature-role {
+            margin: 0;
+            color: rgba(215, 215, 200, 0.72);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .two-column-tiled { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .gs-card {
+            background-color: var(--gs-card);
+            border: 1px solid var(--gs-border);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+        }
+        .gs-card h3 { color: var(--gs-secondary); margin-bottom: 15px; font-size: 24px; }
+
+        .tiled-icons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .icon-tile {
+            background: var(--gs-card);
+            border: 1px solid var(--gs-border);
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+        }
+        .icon-tile i { 
+            font-size: 40px; 
+            margin-bottom: 20px; 
+            background: var(--gs-gradient); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+
+        .gs-table { width: 100%; border-collapse: collapse; background: var(--gs-card); border-radius: 16px; overflow: hidden; }
+        .gs-table th { background: #2D3278; padding: 20px; text-align: left; color: #FFF; font-size: 18px; }
+        .gs-table td { padding: 18px 20px; border-bottom: 1px solid var(--gs-border); font-size: 18px; }
+
+        .positioning-grid {
+            display: grid;
+            grid-template-columns: 0.92fr 1.08fr;
+            gap: 34px;
+            align-items: stretch;
+        }
+        .positioning-card {
+            background: linear-gradient(135deg, rgba(58, 65, 168, 0.92), rgba(250, 95, 70, 0.82));
+            border-radius: 22px;
+            padding: 42px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 390px;
+        }
+        .positioning-card h3 {
+            color: #FFFFFF;
+            font-size: 34px;
+            line-height: 1.14;
+            margin-bottom: 18px;
+        }
+        .positioning-card p {
+            color: rgba(255,255,255,0.86);
+            margin: 0;
+        }
+        .comparison-list {
+            display: grid;
+            gap: 16px;
+        }
+        .comparison-item {
+            background: var(--gs-card);
+            border: 1px solid var(--gs-border);
+            border-radius: 18px;
+            padding: 24px 26px;
+        }
+        .comparison-item h3 {
+            color: var(--gs-secondary);
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+        .comparison-item p {
+            margin: 0;
+            font-size: 18px;
+        }
+        .sales-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+        .sales-card {
+            background: var(--gs-card);
+            border: 1px solid var(--gs-border);
+            border-radius: 18px;
+            padding: 22px 24px;
+            min-height: 146px;
+        }
+        .sales-card i {
+            color: var(--gs-secondary);
+            font-size: 26px;
+            margin-bottom: 16px;
+        }
+        .sales-card h3 {
+            font-size: 22px;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+        .sales-card p {
+            margin: 0;
+            font-size: 17px;
+        }
+        #slide6 .content-area {
+            justify-content: flex-start;
+        }
+        #slide6 .two-column-tiled {
+            gap: 24px;
+            align-items: start;
+        }
+        #slide6 .gs-card {
+            padding: 24px 26px;
+            border-radius: 18px;
+        }
+        #slide6 .gs-card p {
+            font-size: 18px;
+            line-height: 1.42;
+        }
+        #slide6 h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+        #slide12 .slide-title {
+            font-size: 44px;
+            margin-bottom: 28px;
+        }
+        #slide12 .slide-title::before {
+            height: 44px;
+        }
+        #slide12 .sales-grid {
+            gap: 12px 18px;
+        }
+        #slide12 .sales-card {
+            min-height: 128px;
+            padding: 16px 22px;
+            border-radius: 16px;
+        }
+        #slide12 .sales-card i {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        #slide12 .sales-card h3 {
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+        #slide12 .sales-card p {
+            font-size: 16px;
+            line-height: 1.36;
+        }
+        .pitch-layout {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 34px;
+            align-items: center;
+        }
+        .pitch-box {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(215, 215, 200, 0.14);
+            border-radius: 22px;
+            padding: 38px;
+        }
+        .pitch-box h3 {
+            color: var(--gs-secondary);
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+        .pitch-box p {
+            font-size: 25px;
+            margin: 0;
+        }
+        .objection-list {
+            display: grid;
+            gap: 16px;
+        }
+        .objection-list li {
+            list-style: none;
+            background: var(--gs-card);
+            border-left: 4px solid var(--gs-secondary);
+            border-radius: 12px;
+            padding: 18px 20px;
+            font-size: 18px;
+        }
+
+        .highlight-box {
+            background: var(--gs-gradient);
+            padding: 40px;
+            border-radius: 24px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .highlight-box h3 { color: #FFF; font-size: 32px; margin-bottom: 10px; }
+
+        .automation-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .automation-list li {
+            background: rgba(255,255,255,0.05);
+            padding: 15px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 18px;
+        }
+        .automation-list li i { color: var(--gs-secondary); }
+
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1: Título -->
+<div class="slide-container cover-slide" id="slide1">
+    <div class="cover-frame title-layout">
+        <div class="cover-copy">
+            <img class="cover-brand" src="logo-branco.png" alt="Logo Gestão Segura">
+            <div>
+                <p class="cover-kicker">Fluxo comercial de produto</p>
+                <h1>Esteiras: o Kanban inteligente do SGS</h1>
+                <p class="subtitle">Uma estrutura configurável para organizar <strong>eventos</strong>, <strong>tipos</strong>, <strong>etapas</strong>, <strong>formulários</strong>, <strong>SLA</strong>, <strong>diretórios</strong> e <strong>guias adicionais</strong>.</p>
+            </div>
+            <div class="cover-footer">
+                <span><i class="fa-solid fa-chart-line"></i> Valor comercial</span>
+                <span><i class="fa-solid fa-table-columns"></i> Fluxo por etapas</span>
+                <span><i class="fa-solid fa-shield-halved"></i> Governança</span>
+            </div>
+        </div>
+        <div class="cover-visual" aria-hidden="true">
+            <div class="process-map">
+                <div class="process-line"></div>
+                <div class="process-line vertical"></div>
+                <div class="process-line diagonal-a"></div>
+                <div class="process-line diagonal-b"></div>
+                <div class="process-node primary"><i class="fa-solid fa-table-cells-large"></i></div>
+                <div class="process-node top"><i class="fa-solid fa-tag"></i></div>
+                <div class="process-node right"><i class="fa-solid fa-layer-group"></i></div>
+                <div class="process-node bottom"><i class="fa-solid fa-file-signature"></i></div>
+                <div class="process-node left"><i class="fa-solid fa-folder-tree"></i></div>
+            </div>
+            <div class="process-label">Evento entra. Etapa orienta. Fluxo avança.</div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 2: Contexto -->
+<div class="slide-container" id="slide2">
+    <div class="gs-header"><img src="favicon.png"></div>
+    <h2 class="slide-title">Por que isso importa para o comercial</h2>
+    <div class="content-area">
+        <div class="two-column-tiled">
+            <div class="gs-card">
+                <h3>O cliente quer previsibilidade</h3>
+                <p>Ele não compra um quadro bonitinho. Ele compra <strong>controle do fluxo</strong>, menos improviso e uma operação que não depende da memória do time.</p>
+            </div>
+            <div class="gs-card">
+                <h3>O SGS vende estrutura pronta</h3>
+                <p>A esteira mostra que o produto já nasce com <strong>etapas, tipos, regras e organização</strong> pensados para a operação real do cliente.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 3: O Conceito de Orquestrador -->
+<div class="slide-container" id="slide3">
+    <div class="gs-header"><img src="favicon.png"></div>
+    <h2 class="slide-title">O que é uma esteira</h2>
+    <div class="content-area">
+        <div class="positioning-grid">
+            <div class="positioning-card">
+                <h3>Esteira = processo configurável em formato Kanban.</h3>
+                <p>Ela define como o evento entra, percorre as etapas e mantém o fluxo organizado do início ao fim.</p>
+            </div>
+            <div class="comparison-list">
+                <div class="comparison-item">
+                    <h3>Esteira é o termo de negócio</h3>
+                    <p>Ajuda a falar com o cliente sem cair em ambiguidades técnicas.</p>
+                </div>
+                <div class="comparison-item">
+                    <h3>Processo é o termo técnico</h3>
+                    <p>É o nome interno do conceito, mas a venda acontece como esteira.</p>
+                </div>
+                <div class="comparison-item">
+                    <h3>Evento é a unidade de trabalho</h3>
+                    <p>É ele que caminha entre etapas, acumula informações e registra a operação.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 4: As Regras de Automação (DETALHADO) -->
+<div class="slide-container" id="slide4">
+    <div class="gs-header"><img src="favicon.png"></div>
+    <h2 class="slide-title">Como a esteira é montada</h2>
+    <div class="content-area">
+        <p>A esteira combina elementos simples para construir um fluxo que pode ser adaptado por cliente e por operação:</p>
+        <ul class="automation-list">
+            <li><i class="fa-solid fa-table-cells"></i> Quadros com colunas por etapa</li>
+            <li><i class="fa-solid fa-tags"></i> Tipos de evento configuráveis</li>
+            <li><i class="fa-solid fa-file-lines"></i> Formulário por etapa</li>
+            <li><i class="fa-solid fa-hourglass-half"></i> SLA por etapa</li>
+            <li><i class="fa-solid fa-folder-open"></i> Diretórios e guias adicionais</li>
+            <li><i class="fa-solid fa-sliders"></i> Regras e evolução do fluxo</li>
+        </ul>
+        <div class="gs-card" style="margin-top: 30px; padding: 20px; background: rgba(58, 65, 168, 0.1);">
+            <p style="font-size: 18px; text-align: center; margin: 0;">
+                <i class="fa-solid fa-circle-info"></i> Isso garante <strong>padronização</strong>: cada cliente pode ter sua própria operação sem perder a lógica do produto.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 5: Formulários não são checklists -->
+<div class="slide-container" id="slide5">
+    <div class="gs-header"><img src="favicon.png"></div>
+    <h2 class="slide-title">Etapas como colunas do Kanban</h2>
+    <div class="content-area">
+        <div class="two-column-tiled">
+            <div class="tiled-icons" style="grid-template-columns: 1fr 1fr;">
+                <div class="icon-tile"><i class="fa-solid fa-clipboard-list"></i><p>Entrada</p></div>
+                <div class="icon-tile"><i class="fa-solid fa-magnifying-glass"></i><p>Análise</p></div>
+                <div class="icon-tile"><i class="fa-solid fa-triangle-exclamation"></i><p>Aguardando ação</p></div>
+                <div class="icon-tile"><i class="fa-solid fa-circle-check"></i><p>Finalização</p></div>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: center;">
+                <p>Cada etapa representa um momento do processo. O evento sempre está em uma coluna, e o comercial consegue explicar isso como uma operação previsível, visual e fácil de entender.</p>
+                <p style="margin-top: 18px;">A etapa pode carregar sua própria configuração, sem quebrar o restante da esteira.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 6: Versionamento -->
+<div class="slide-container" id="slide6">
+    <div class="gs-header"><img src="favicon.png"></div>
+    <h2 class="slide-title">O que cada etapa pode carregar</h2>
+    <div class="content-area">
+        <div class="two-column-tiled" style="grid-template-columns: 1fr 1fr; gap: 50px;">
+            <div style="display: flex; flex-direction: column; gap: 20px; justify-content: center;">
+                <div class="gs-card">
+                    <p><strong>Formulário</strong> associado à etapa, com captura de dados no momento certo do fluxo.</p>
+                </div>
+                <div class="gs-card">
+                    <p><strong>Status / fases</strong> internos para refletir estados do trabalho sem mudar a posição no Kanban.</p>
+                </div>
+                <div class="gs-card">
+                    <p><strong>SLA</strong> para medir permanência e reforçar compromisso operacional.</p>
+                </div>
+            </div>
+            <div class="gs-card" style="display: flex; flex-direction: column; justify-content: center;">
+                <h3 style="margin-bottom: 18px;">Mensagem comercial</h3>
+                <p>O cliente não precisa comprar um fluxo engessado. Ele compra um fluxo <strong>configurável por etapa</strong>, com governança e espaço para evolução.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 7: Campos Dinâmicos -->
+<div class="slide-container" id="slide7">
+    <div class="gs-header"><img src="favicon.png"></div>
+    <h2 class="slide-title">Diretórios e guias adicionais</h2>
+    <div class="content-area">
+        <div class="two-column-tiled">
+            <div class="gs-card">
+                <h3>Diretórios</h3>
+                <p>Organizam documentos e evidências por contexto do evento, como fotos, termos, laudos ou qualquer agrupamento necessário para a operação.</p>
+                <p style="margin-top: 14px;">Para o comercial, isso reforça que a esteira não é só fluxo: ela também organiza a informação que sustenta a decisão.</p>
+            </div>
+            <div class="gs-card">
+                <h3>Guias adicionais</h3>
+                <p>Funcionam como apoios complementares do evento, ajudando a orientar o usuário com informações extras, checklists ou conteúdos de suporte.</p>
+                <p style="margin-top: 14px;">Isso transmite flexibilidade para o cliente sem exigir customização pesada em cada operação.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 8: Dependências -->
+<div class="slide-container" id="slide8">
+    <div class="gs-header"><img src="favicon.png"></div>
+    <h2 class="slide-title">Evento: o centro da operação</h2>
+    <div class="content-area">
+        <div class="highlight-box">
+            <h3>O evento concentra toda a verdade do processo</h3>
+            <p>É nele que ficam o tipo, a etapa atual, os formulários aplicados, os documentos, os guias e o histórico de movimentação.</p>
+        </div>
+        <div class="two-column-tiled" style="margin-top: 26px;">
+            <div class="gs-card">
+                <h3>Para a operação</h3>
+                <p>Fica claro o próximo passo, reduzindo dúvida e retrabalho.</p>
+            </div>
+            <div class="gs-card">
+                <h3>Para a gestão</h3>
+                <p>Ganha rastreabilidade, indicadores e controle do ciclo de ponta a ponta.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 9: Permissões -->
+<div class="slide-container" id="slide9">
+    <div class="gs-header"><img src="favicon.png"></div>
+    <h2 class="slide-title">O que isso entrega para o cliente</h2>
+    <div class="content-area">
+        <div class="sales-grid">
+            <div class="gs-card">
+                <h3>Previsibilidade</h3>
+                <p>O cliente entende onde cada evento está e o que precisa acontecer para avançar.</p>
+            </div>
+            <div class="gs-card">
+                <h3>Padronização</h3>
+                <p>Todos seguem o mesmo fluxo, com menos variação entre equipes e filiais.</p>
+            </div>
+            <div class="gs-card">
+                <h3>Governança</h3>
+                <p>Etapas, documentos e decisões ficam organizados e auditáveis.</p>
+            </div>
+            <div class="gs-card">
+                <h3>Escala</h3>
+                <p>O produto suporta crescimento sem reinventar o processo a cada novo cliente.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 10: Centralização -->
+<div class="slide-container" id="slide10">
+    <div class="gs-header"><img src="favicon.png"></div>
+    <h2 class="slide-title">Posicionamento comercial</h2>
+    <div class="content-area">
+        <div class="positioning-grid">
+            <div class="positioning-card">
+                <h3>O SGS é a esteira pronta para a operação do cliente.</h3>
+                <p>Não é só um Kanban genérico. É um produto que já fala a língua do fluxo, do evento e da governança operacional.</p>
+            </div>
+            <div class="comparison-list">
+                <div class="comparison-item">
+                    <h3>Kanban genérico</h3>
+                    <p>Organiza cartões, mas exige muita adaptação para refletir a realidade do negócio.</p>
+                </div>
+                <div class="comparison-item">
+                    <h3>SGS</h3>
+                    <p>Já nasce com esteira, evento, etapas, tipos, formulários e rastreabilidade no centro da solução.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 11: Posicionamento Comercial -->
+<div class="slide-container" id="slide11">
+    <div class="gs-header"><img src="favicon.png"></div>
+    <h2 class="slide-title">Argumentos de venda</h2>
+    <div class="content-area">
+        <div class="sales-grid">
+            <div class="sales-card">
+                <i class="fa-solid fa-table-columns"></i>
+                <h3>Fluxo visual</h3>
+                <p>O cliente acompanha o caminho do evento sem depender de planilha ou controle paralelo.</p>
+            </div>
+            <div class="sales-card">
+                <i class="fa-solid fa-sliders"></i>
+                <h3>Flexibilidade</h3>
+                <p>Cada cliente pode ter sua esteira, suas etapas e suas configurações.</p>
+            </div>
+            <div class="sales-card">
+                <i class="fa-solid fa-user-shield"></i>
+                <h3>Governança</h3>
+                <p>As informações relevantes ficam organizadas em um único fluxo de trabalho.</p>
+            </div>
+            <div class="sales-card">
+                <i class="fa-solid fa-arrows-rotate"></i>
+                <h3>Evolução contínua</h3>
+                <p>O fluxo pode crescer sem precisar refazer o conceito da operação.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 12: Argumentos de Venda -->
+<div class="slide-container" id="slide12">
+    <div class="gs-header"><img src="favicon.png"></div>
+    <h2 class="slide-title">Como vender a ideia</h2>
+    <div class="content-area">
+        <div class="sales-grid">
+            <div class="sales-card">
+                <i class="fa-solid fa-route"></i>
+                <h3>Esteira pronta</h3>
+                <p>O SGS já entrega a lógica de fluxo que o cliente precisa para começar a operar com mais controle.</p>
+            </div>
+            <div class="sales-card">
+                <i class="fa-solid fa-folder-tree"></i>
+                <h3>Estrutura organizada</h3>
+                <p>Diretórios e guias adicionais ajudam a operar com mais clareza e menos dispersão de informação.</p>
+            </div>
+            <div class="sales-card">
+                <i class="fa-solid fa-clock"></i>
+                <h3>SLA e controle</h3>
+                <p>Cada etapa pode ser monitorada pelo tempo de permanência, reforçando comprometimento e prioridade.</p>
+            </div>
+            <div class="sales-card">
+                <i class="fa-solid fa-chart-simple"></i>
+                <h3>Escala com previsibilidade</h3>
+                <p>O cliente ganha estrutura para crescer sem perder visibilidade sobre o fluxo.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 13: Pitch Comercial -->
+<div class="slide-container" id="slide13">
+    <div class="gs-header"><img src="favicon.png"></div>
+    <h2 class="slide-title">Mensagem para o cliente</h2>
+    <div class="content-area">
+        <div class="pitch-layout">
+            <div class="pitch-box">
+                <h3>Pitch</h3>
+                <p>O SGS organiza a operação em uma esteira inteligente: o evento percorre etapas configuráveis, cada fase pode carregar suas regras, e toda a operação fica visível para gestão e auditoria.</p>
+            </div>
+            <ul class="objection-list">
+                <li><strong>Para o gestor:</strong> previsibilidade, SLA e visão clara do fluxo.</li>
+                <li><strong>Para a operação:</strong> menos dúvida sobre o próximo passo.</li>
+                <li><strong>Para o comercial:</strong> uma solução com linguagem de negócio.</li>
+                <li><strong>Para o cliente:</strong> organização, controle e evolução sem improviso.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 14: Finalização -->
+<div class="slide-container closing-slide" id="slide14">
+    <div class="closing-frame">
+        <div class="closing-mark">
+            <img class="closing-brand" src="logo-branco.png" alt="Logo Gestão Segura">
+            <div class="closing-seal" aria-hidden="true">
+                <i class="fa-solid fa-table-columns"></i>
+            </div>
+        </div>
+        <div class="closing-content">
+            <p class="closing-kicker">Finalização</p>
+            <h2>Esteira boa é a que o cliente entende, adota e escala.</h2>
+            <p class="closing-message">Obrigado pela atenção. Seguimos evoluindo o SGS como uma plataforma de fluxo, governança e valor comercial.</p>
+            <div class="signature-block">
+                <p class="signature-name">Gilberto Ferreira</p>
+                <p class="signature-role">Líder de Desenvolvimento</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
