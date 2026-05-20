@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão Segura | Tutorial Google Drive como Storage Padrão</title>
+    <link rel="icon" href="../../../apresentacoes/formularios/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gs-bg: #1a1a1a;
+            --gs-card: #212121;
+            --gs-card-soft: #252525;
+            --gs-border: rgba(215, 215, 200, 0.12);
+            --gs-text: #d7d7c8;
+            --gs-muted: rgba(215, 215, 200, 0.72);
+            --gs-primary: #3a41a8;
+            --gs-secondary: #fa5f46;
+            --gs-secondary-hover: #d94a33;
+            --gs-gradient: linear-gradient(135deg, #2d3278 0%, #3a41a8 100%);
+            --gs-secondary-gradient: linear-gradient(135deg, #fa5f46 0%, #ff7a64 100%);
+            --gs-code: #101010;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            background:
+                radial-gradient(circle at 14% 4%, rgba(250, 95, 70, 0.14), transparent 24rem),
+                radial-gradient(circle at 88% 0%, rgba(58, 65, 168, 0.22), transparent 26rem),
+                linear-gradient(135deg, #111 0%, var(--gs-bg) 52%, #242424 100%);
+            color: var(--gs-text);
+            font-family: 'Inter', Arial, sans-serif;
+            line-height: 1.58;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 84%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 84%, transparent 100%);
+            opacity: 0.42;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        strong {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .page-shell {
+            position: relative;
+            z-index: 1;
+            width: min(1280px, calc(100% - 48px));
+            margin: 0 auto;
+            padding: 24px 0 40px;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 286px;
+            gap: 28px;
+            align-items: end;
+            min-height: 330px;
+            padding: 40px;
+            margin-bottom: 22px;
+            background:
+                radial-gradient(circle at 88% 18%, rgba(250, 95, 70, 0.18), transparent 18rem),
+                radial-gradient(circle at 70% 96%, rgba(58, 65, 168, 0.38), transparent 22rem),
+                rgba(33, 33, 33, 0.88);
+            border: 1px solid rgba(215, 215, 200, 0.13);
+            border-radius: 20px;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.28);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            right: -150px;
+            top: -170px;
+            width: 420px;
+            height: 420px;
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            border-radius: 50%;
+        }
+
+        .hero > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand {
+            width: 176px;
+            height: auto;
+            display: block;
+            margin-bottom: 22px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            color: rgba(215, 215, 200, 0.82);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: '';
+            width: 42px;
+            height: 2px;
+            background: var(--gs-secondary);
+        }
+
+        h1, h2, h3 {
+            margin: 0;
+            color: #fff;
+            font-family: 'Poppins', 'Inter', sans-serif;
+            letter-spacing: 0;
+        }
+
+        .hero h1 {
+            max-width: 720px;
+            font-size: clamp(42px, 5.5vw, 70px);
+            line-height: 1.02;
+            text-wrap: balance;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: 18px 0 0;
+            color: rgba(215, 215, 200, 0.9);
+            font-size: 19px;
+        }
+
+        .summary {
+            display: grid;
+            gap: 12px;
+        }
+
+        .summary-item {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--gs-border);
+            border-radius: 12px;
+        }
+
+        .summary-item span {
+            display: block;
+            color: var(--gs-muted);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .summary-item strong {
+            display: block;
+            margin-top: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .card {
+            padding: 24px;
+            background: rgba(33, 33, 33, 0.88);
+            border: 1px solid var(--gs-border);
+            border-radius: 16px;
+            box-shadow: 0 18px 54px rgba(0, 0, 0, 0.18);
+        }
+
+        .card h2 {
+            font-size: clamp(24px, 3vw, 34px);
+            line-height: 1.12;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+            color: var(--gs-secondary);
+            font-size: 18px;
+        }
+
+        .card p {
+            margin: 10px 0 0;
+            color: var(--gs-text);
+        }
+
+        .callout {
+            border-left: 4px solid var(--gs-secondary);
+        }
+
+        .callout.primary {
+            border-left-color: var(--gs-primary);
+        }
+
+        .kpis {
+            display: grid;
+            gap: 12px;
+        }
+
+        .kpi {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(215, 215, 200, 0.08);
+            border-radius: 12px;
+        }
+
+        .kpi span {
+            display: block;
+            color: var(--gs-muted);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .kpi strong {
+            display: block;
+            margin-top: 6px;
+            font-size: 15px;
+        }
+
+        .section {
+            margin-top: 18px;
+            padding: 24px;
+            background: rgba(33, 33, 33, 0.88);
+            border: 1px solid var(--gs-border);
+            border-radius: 16px;
+            box-shadow: 0 18px 54px rgba(0, 0, 0, 0.18);
+        }
+
+        .section-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(24px, 3vw, 34px);
+            line-height: 1.12;
+        }
+
+        .section-header .tag {
+            color: rgba(215, 215, 200, 0.68);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        ul, ol {
+            margin: 14px 0 0;
+            padding-left: 20px;
+        }
+
+        li + li {
+            margin-top: 8px;
+        }
+
+        .steps {
+            display: grid;
+            gap: 16px;
+            margin-top: 14px;
+        }
+
+        .step {
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(215, 215, 200, 0.08);
+            border-radius: 14px;
+        }
+
+        .step-top {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .step-top strong {
+            font-size: 15px;
+        }
+
+        .step-badge {
+            padding: 6px 10px;
+            color: #fff;
+            background: var(--gs-gradient);
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .note {
+            margin-top: 14px;
+            padding: 14px 16px;
+            background: rgba(16, 16, 16, 0.78);
+            border: 1px solid rgba(250, 95, 70, 0.22);
+            border-radius: 12px;
+        }
+
+        .note p {
+            margin: 0;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .code-wrap {
+            margin-top: 14px;
+            position: relative;
+        }
+
+        pre {
+            margin: 0;
+            padding: 20px;
+            overflow: auto;
+            color: #f4f4ed;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
+                var(--gs-code);
+            border: 1px solid rgba(215, 215, 200, 0.12);
+            border-radius: 14px;
+            font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+            font-size: 13px;
+            line-height: 1.58;
+            tab-size: 4;
+            white-space: pre-wrap;
+        }
+
+        .links {
+            display: grid;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .links a {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: center;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(215, 215, 200, 0.08);
+            border-radius: 12px;
+            font-weight: 700;
+            transition: 160ms ease;
+        }
+
+        .links a:hover {
+            background: rgba(255, 255, 255, 0.065);
+            border-color: rgba(215, 215, 200, 0.16);
+            transform: translateY(-1px);
+        }
+
+        .links span {
+            color: var(--gs-secondary);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .footer {
+            margin-top: 18px;
+            padding: 18px 24px;
+            color: rgba(215, 215, 200, 0.66);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 1080px) {
+            .hero,
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .page-shell {
+                width: min(100% - 24px, 1280px);
+                padding: 12px 0 24px;
+            }
+
+            .hero,
+            .section,
+            .card {
+                padding: 22px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p,
+            .card p {
+                font-size: 17px;
+            }
+
+            .links a,
+            .step-top {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page-shell">
+        <header class="hero">
+            <div>
+                <img class="brand" src="../../../apresentacoes/formularios/logo-branco.png" alt="Gestão Segura">
+                <div class="eyebrow">Tutorial operacional</div>
+                <h1>Como configurar o Google Drive como storage padrão do licenciado</h1>
+                <p>
+                    Este guia mostra o fluxo completo para conectar um Google Drive compartilhado ao Gestão Segura,
+                    permitindo que os novos anexos sejam armazenados diretamente no repositório da organização.
+                </p>
+            </div>
+
+            <div class="summary" aria-label="Resumo do tutorial">
+                <div class="summary-item">
+                    <span>Destino</span>
+                    <strong>Google Drive compartilhado</strong>
+                </div>
+                <div class="summary-item">
+                    <span>Pré-requisito</span>
+                    <strong>Google Workspace + permissões administrativas</strong>
+                </div>
+                <div class="summary-item">
+                    <span>Resultado</span>
+                    <strong>Storage padrão do licenciado configurado</strong>
+                </div>
+            </div>
+        </header>
+
+        <section class="grid">
+            <article class="card callout">
+                <h2>Visão geral</h2>
+                <p>
+                    O Gestão Segura pode usar um <strong>Google Drive compartilhado</strong> como repositório padrão
+                    da organização. Quando a integração é concluída, os anexos enviados pelo sistema passam a ser
+                    gravados no Drive definido na configuração do licenciado.
+                </p>
+                <p>
+                    A documentação abaixo segue o mesmo padrão visual das apresentações do produto, mas em formato de
+                    tutorial direto, focado em implantação e validação.
+                </p>
+            </article>
+
+            <aside class="card callout primary">
+                <h3>Antes de começar</h3>
+                <div class="kpis">
+                    <div class="kpi">
+                        <span>Conta</span>
+                        <strong>Google Workspace ativa</strong>
+                    </div>
+                    <div class="kpi">
+                        <span>Permissões</span>
+                        <strong>Acesso administrativo ao Google Cloud</strong>
+                    </div>
+                    <div class="kpi">
+                        <span>Recursos</span>
+                        <strong>Shared Drives e Service Accounts habilitáveis</strong>
+                    </div>
+                </div>
+                <div class="note">
+                    <p>
+                        Contas gratuitas do Google não atendem bem este cenário, porque a integração depende de
+                        <strong>Shared Drives</strong>.
+                    </p>
+                </div>
+            </aside>
+        </section>
+
+        <section class="section" id="pre-requisitos">
+            <div class="section-header">
+                <h2>Pré-requisitos</h2>
+                <span class="tag">Base da configuração</span>
+            </div>
+            <ul>
+                <li>Possuir uma conta do Google Workspace.</li>
+                <li>Ter permissões administrativas no Google Cloud Platform.</li>
+                <li>Ter permissão para criar Shared Drives e Service Accounts.</li>
+            </ul>
+        </section>
+
+        <section class="section" id="passo-a-passo">
+            <div class="section-header">
+                <h2>Passo a passo</h2>
+                <span class="tag">Fluxo de implementação</span>
+            </div>
+
+            <div class="steps">
+                <article class="step">
+                    <div class="step-top">
+                        <strong>1. Criar um projeto no Google Cloud</strong>
+                        <span class="step-badge">Google Cloud Console</span>
+                    </div>
+                    <ol>
+                        <li>Acesse <strong>console.cloud.google.com</strong>.</li>
+                        <li>Clique em <strong>Selecionar projeto</strong> e depois em <strong>Novo Projeto</strong>.</li>
+                        <li>Informe nome do projeto e organização, se aplicável.</li>
+                        <li>Finalize em <strong>Criar</strong>.</li>
+                    </ol>
+                </article>
+
+                <article class="step">
+                    <div class="step-top">
+                        <strong>2. Habilitar a Google Drive API</strong>
+                        <span class="step-badge">API</span>
+                    </div>
+                    <ol>
+                        <li>Com o projeto selecionado, acesse a biblioteca de APIs.</li>
+                        <li>Pesquise por <strong>Google Drive API</strong>.</li>
+                        <li>Abra a API e clique em <strong>Ativar</strong>.</li>
+                    </ol>
+                </article>
+
+                <article class="step">
+                    <div class="step-top">
+                        <strong>3. Criar a Service Account</strong>
+                        <span class="step-badge">Credencial</span>
+                    </div>
+                    <ol>
+                        <li>Acesse a área de Service Accounts do projeto.</li>
+                        <li>Clique em <strong>Criar Conta de Serviço</strong>.</li>
+                        <li>Informe nome e ID da conta.</li>
+                        <li>Finalize sem adicionar permissões extras nesta etapa.</li>
+                    </ol>
+                </article>
+
+                <article class="step">
+                    <div class="step-top">
+                        <strong>4. Gerar a chave JSON</strong>
+                        <span class="step-badge">Autenticação</span>
+                    </div>
+                    <ol>
+                        <li>Abra a Service Account criada.</li>
+                        <li>Acesse a aba <strong>Chaves</strong>.</li>
+                        <li>Escolha <strong>Adicionar chave</strong> e depois <strong>Criar nova chave</strong>.</li>
+                        <li>Selecione o tipo <strong>JSON</strong> e conclua a criação.</li>
+                    </ol>
+                    <div class="note">
+                        <p>Guarde o arquivo JSON com segurança, pois ele será usado pelo Gestão Segura na autenticação.</p>
+                    </div>
+                </article>
+
+                <article class="step">
+                    <div class="step-top">
+                        <strong>5. Criar o Drive compartilhado</strong>
+                        <span class="step-badge">Repositório</span>
+                    </div>
+                    <ol>
+                        <li>Acesse <strong>drive.google.com</strong>.</li>
+                        <li>No menu lateral, entre em <strong>Drives Compartilhados</strong>.</li>
+                        <li>Clique em <strong>Novo</strong> e defina o nome do Drive.</li>
+                    </ol>
+                </article>
+
+                <article class="step">
+                    <div class="step-top">
+                        <strong>6. Compartilhar o Drive com a Service Account</strong>
+                        <span class="step-badge">Permissão</span>
+                    </div>
+                    <p>
+                        Adicione o e-mail da Service Account como membro do Drive Compartilhado com permissão de
+                        <strong>Editor</strong>.
+                    </p>
+                    <div class="note">
+                        <p>
+                            Sem essa permissão, o Gestão Segura não consegue enviar nem ler arquivos no Google Drive.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="step">
+                    <div class="step-top">
+                        <strong>7. Configurar o Gestão Segura</strong>
+                        <span class="step-badge">Aplicação</span>
+                    </div>
+                    <ol>
+                        <li>Acesse as configurações da organização no Gestão Segura.</li>
+                        <li>Entre em <strong>Storage</strong> e depois em <strong>Google Drive</strong>.</li>
+                        <li>Envie o JSON da Service Account.</li>
+                        <li>Informe o ID do Drive Compartilhado, se a interface solicitar.</li>
+                        <li>Salve a configuração.</li>
+                    </ol>
+                </article>
+
+                <article class="step">
+                    <div class="step-top">
+                        <strong>8. Localizar o ID do Drive Compartilhado</strong>
+                        <span class="step-badge">Identificador</span>
+                    </div>
+                    <p>
+                        O ID normalmente aparece na URL do Drive. Exemplo:
+                    </p>
+                    <div class="code-wrap">
+                        <pre>https://drive.google.com/drive/folders/0AFxxxxxxxxUk9PVA</pre>
+                    </div>
+                    <p>O identificador a ser usado é <strong>0AFxxxxxxxxUk9PVA</strong>.</p>
+                </article>
+
+                <article class="step">
+                    <div class="step-top">
+                        <strong>9. Validar a configuração</strong>
+                        <span class="step-badge">Conferência</span>
+                    </div>
+                    <p>Após salvar, o sistema deve validar automaticamente:</p>
+                    <ul>
+                        <li>Conexão com a Google Drive API.</li>
+                        <li>Acesso ao Drive Compartilhado.</li>
+                        <li>Permissão de leitura.</li>
+                        <li>Permissão de escrita.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="problemas-comuns">
+            <div class="section-header">
+                <h2>Problemas comuns</h2>
+                <span class="tag">Diagnóstico rápido</span>
+            </div>
+
+            <article class="step">
+                <div class="step-top">
+                    <strong>Erro: permissão negada</strong>
+                    <span class="step-badge">Acesso</span>
+                </div>
+                <p><strong>Causa provável:</strong> a Service Account não foi adicionada ao Drive Compartilhado.</p>
+                <p><strong>Solução:</strong> revise o compartilhamento e confirme a permissão de Editor.</p>
+            </article>
+
+            <article class="step" style="margin-top: 12px;">
+                <div class="step-top">
+                    <strong>Erro: API não habilitada</strong>
+                    <span class="step-badge">Google Cloud</span>
+                </div>
+                <p><strong>Causa provável:</strong> a Google Drive API não foi ativada no projeto.</p>
+                <p><strong>Solução:</strong> ative a API no Google Cloud Console.</p>
+            </article>
+
+            <article class="step" style="margin-top: 12px;">
+                <div class="step-top">
+                    <strong>Erro: Drive não encontrado</strong>
+                    <span class="step-badge">Identificação</span>
+                </div>
+                <p><strong>Causa provável:</strong> o ID do Drive está incorreto.</p>
+                <p><strong>Solução:</strong> revise o ID informado na configuração do Gestão Segura.</p>
+            </article>
+        </section>
+
+        <section class="section" id="links-oficiais">
+            <div class="section-header">
+                <h2>Links oficiais do Google</h2>
+                <span class="tag">Referências</span>
+            </div>
+            <div class="links">
+                <a href="https://developers.google.com/workspace/drive" target="_blank" rel="noreferrer">
+                    Google Drive API <span>Documentação oficial</span>
+                </a>
+                <a href="https://console.cloud.google.com/" target="_blank" rel="noreferrer">
+                    Google Cloud Console <span>Acesso ao projeto</span>
+                </a>
+                <a href="https://cloud.google.com/iam/docs/service-accounts-create" target="_blank" rel="noreferrer">
+                    Service Accounts <span>Guia do Google</span>
+                </a>
+                <a href="https://support.google.com/a/users/answer/9310249" target="_blank" rel="noreferrer">
+                    Shared Drives <span>Ajuda do Google</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <h2>Resultado esperado</h2>
+                <span class="tag">Entrega final</span>
+            </div>
+            <ul>
+                <li>Os novos arquivos enviados pelo Gestão Segura passam a ser armazenados no Google Drive configurado.</li>
+                <li>Os arquivos antigos continuam disponíveis normalmente.</li>
+                <li>A migração de arquivos antigos pode ser feita depois, sob demanda.</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            Gestão Segura | Tutorial operacional para configuração do storage padrão via Google Drive
+        </footer>
+    </main>
+</body>
+</html>
